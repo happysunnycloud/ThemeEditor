@@ -8,6 +8,9 @@ uses
   FMX.Colors, FMX.StdCtrls, FMX.Controls.Presentation, FMX.Layouts, FMX.Objects,
   FMX.ThemeUnit, FMX.Edit, FMX.ListBox;
 
+const
+  DEFAUL_FONT_FAMILY = '(Default)';
+
 type
   TMainForm = class(TFormExt)
     ColorPicker: TColorPicker;
@@ -103,19 +106,21 @@ uses
     System.UIConsts
   , ParamsExtUnit
   , FMX.ImageToolsUnit
-  ;
+  , BorderFrameUnit;
 
 procedure TMainForm.ThemeApply;
 begin
-  BorderFrame.BorderColor := FTheme.BorderFrameColor;
+//  FTheme.FormSettings.BorderFrameKind := bfkNone;
+  BorderFrame.BorderColor := FTheme.FormSettings.BorderFrameColor;
+
   NormalLabel.FontColor := FTheme.TextSettings.FontColor;
   FocusedLabel.FontColor := FTheme.TextSettings.FontColor;
-  NormalLabel.TextSettings.Font.Family := FTheme.VisualListSettings.CustomTextSettings.FontFamily;
-  FocusedLabel.TextSettings.Font.Family := FTheme.VisualListSettings.CustomTextSettings.FontFamily;
+  NormalLabel.TextSettings.Font.Family := FTheme.ItemSettings.CustomTextSettings.FontFamily;
+  FocusedLabel.TextSettings.Font.Family := FTheme.ItemSettings.CustomTextSettings.FontFamily;
 
-  NormalBackgroundRectangle.Fill.Color := FTheme.VisualListSettings.ItemBackgroundColor;
-  FocusedBackgroundRectangle.Fill.Color := FTheme.VisualListSettings.FocusedItemBackgroundColor;
-  FocusedBackgroundRectangle.Stroke.Color := FTheme.VisualListSettings.FocusFrameColor;
+  NormalBackgroundRectangle.Fill.Color := FTheme.ItemSettings.ItemBackgroundColor;
+  FocusedBackgroundRectangle.Fill.Color := FTheme.ItemSettings.FocusedItemBackgroundColor;
+  FocusedBackgroundRectangle.Stroke.Color := FTheme.ItemSettings.FocusFrameColor;
   NormalBackgroundRectangle.Stroke.Color := FocusedBackgroundRectangle.Stroke.Color;
 
   PopupMenuBackgroundRectangle.Fill.Color := FTheme.PopUpMenuSettings.BackgroundColor;
@@ -152,7 +157,8 @@ begin
     Params.Add(FTheme.BorderFrameColor, 'BorderFrameColor');
     Params.Add(FTheme.TextSettings.FontColor, 'TextSettingsFontColor');
 
-    Params.ObjectToParams(FTheme.VisualListSettings);
+    Params.ObjectToParams(FTheme.FormSettings);
+    Params.ObjectToParams(FTheme.ItemSettings);
     Params.ObjectToParams(FTheme.PopUpMenuSettings);
 
     Params.SaveToFile('theme.bin');
@@ -164,6 +170,7 @@ end;
 procedure TMainForm.LoadButtonClick(Sender: TObject);
 var
   Params: TParamsExt;
+  FontFamily: String;
   Index: Integer;
 begin
   Params := TParamsExt.Create;
@@ -173,7 +180,8 @@ begin
     FTheme.BorderFrameColor := Params.AsCardinalByIdent['BorderFrameColor'];
     FTheme.TextSettings.FontColor := Params.AsCardinalByIdent['TextSettingsFontColor'];
 
-    Params.ParamsToObject(FTheme.VisualListSettings);
+    Params.ParamsToObject(FTheme.FormSettings);
+    Params.ParamsToObject(FTheme.ItemSettings);
     Params.ParamsToObject(FTheme.PopUpMenuSettings);
   finally
     Params.Free;
@@ -185,13 +193,14 @@ begin
 
   Index :=
     FontSizeComboBox.Items.
-      IndexOf(FTheme.VisualListSettings.CustomTextSettings.FontSize.ToString);
-  FontSizeComboBox.Index := Index;
+      IndexOf(FTheme.ItemSettings.CustomTextSettings.FontSize.ToString);
+  FontSizeComboBox.ItemIndex := Index;
 
-  Index :=
-    FontFamilyComboBox.Items.
-      IndexOf(FTheme.VisualListSettings.CustomTextSettings.FontFamily);
-  FontFamilyComboBox.Index := Index;
+  FontFamily := FTheme.ItemSettings.CustomTextSettings.FontFamily;
+  if FontFamily.Length = 0 then
+    FontFamily := DEFAUL_FONT_FAMILY;
+  Index := FontFamilyComboBox.Items.IndexOf(FontFamily);
+  FontFamilyComboBox.ItemIndex := Index;
 
   // ---------- //
 
@@ -200,9 +209,10 @@ begin
       IndexOf(FTheme.PopUpMenuSettings.CustomTextSettings.FontSize.ToString);
   ItemFontSizeComboBox.ItemIndex := Index;
 
-  Index :=
-    ItemFontFamilyComboBox.Items.
-      IndexOf(FTheme.PopUpMenuSettings.CustomTextSettings.FontFamily);
+  FontFamily := FTheme.PopUpMenuSettings.CustomTextSettings.FontFamily;
+  if FontFamily.Length = 0 then
+    FontFamily := DEFAUL_FONT_FAMILY;
+  Index := ItemFontFamilyComboBox.Items.IndexOf(FontFamily);
   ItemFontFamilyComboBox.ItemIndex := Index;
 end;
 
@@ -237,7 +247,7 @@ begin
 
   if BorderFrameRadioButton.IsChecked then
   begin
-    FTheme.BorderFrameColor := Color;
+    FTheme.FormSettings.BorderFrameColor := Color;
     BorderFrame.BorderColor := Color;
   end
   else
@@ -250,19 +260,19 @@ begin
   else
   if NormalBackgroundRadioButton.IsChecked then
   begin
-    FTheme.VisualListSettings.ItemBackgroundColor := Color;
+    FTheme.ItemSettings.ItemBackgroundColor := Color;
     NormalBackgroundRectangle.Fill.Color := Color;
   end
   else
   if FocusedBackgroundRadioButton.IsChecked then
   begin
-    FTheme.VisualListSettings.FocusedItemBackgroundColor := Color;
+    FTheme.ItemSettings.FocusedItemBackgroundColor := Color;
     FocusedBackgroundRectangle.Fill.Color := Color;
   end
   else
   if FocusFrameRadioButton.IsChecked then
   begin
-    FTheme.VisualListSettings.FocusFrameColor := Color;
+    FTheme.ItemSettings.FocusFrameColor := Color;
     NormalBackgroundRectangle.Stroke.Color := Color;
     FocusedBackgroundRectangle.Stroke.Color := Color;
   end
@@ -322,21 +332,21 @@ begin
 
   // ------------ //
 
-  FontFamilyComboBox.Items.Add('(Default)');
+  FontFamilyComboBox.Items.Add(DEFAUL_FONT_FAMILY);
   FontFamilyComboBox.Items.Add('Arial');
   FontFamilyComboBox.Items.Add('Times New Roman');
   FontFamilyComboBox.Items.Add('Courier New');
 
   FontFamilyComboBox.ItemIndex :=
-    FontFamilyComboBox.Items.IndexOf('(Default)');
+    FontFamilyComboBox.Items.IndexOf(DEFAUL_FONT_FAMILY);
 
-  ItemFontFamilyComboBox.Items.Add('(Default)');
+  ItemFontFamilyComboBox.Items.Add(DEFAUL_FONT_FAMILY);
   ItemFontFamilyComboBox.Items.Add('Arial');
   ItemFontFamilyComboBox.Items.Add('Times New Roman');
   ItemFontFamilyComboBox.Items.Add('Courier New');
 
   ItemFontFamilyComboBox.ItemIndex :=
-    ItemFontFamilyComboBox.Items.IndexOf('(Default)');
+    ItemFontFamilyComboBox.Items.IndexOf(DEFAUL_FONT_FAMILY);
 
   ThemeApply;
 end;
@@ -358,7 +368,7 @@ var
   FontFamily: String;
 begin
   FontFamily := ItemFontFamilyComboBox.Items[ItemFontFamilyComboBox.ItemIndex];
-  if FontFamily = '(Default)' then
+  if FontFamily = DEFAUL_FONT_FAMILY then
     FontFamily := '';
 
   FTheme.PopUpMenuSettings.CustomTextSettings.FontFamily := FontFamily;
@@ -487,10 +497,10 @@ var
   FontFamily: String;
 begin
   FontFamily := FontFamilyComboBox.Items[FontFamilyComboBox.ItemIndex];
-  if FontFamily = '(Default)' then
+  if FontFamily = DEFAUL_FONT_FAMILY then
     FontFamily := '';
 
-  FTheme.VisualListSettings.CustomTextSettings.FontFamily := FontFamily;
+  FTheme.ItemSettings.CustomTextSettings.FontFamily := FontFamily;
 
   NormalLabel.TextSettings.Font.Family := FontFamily;
   FocusedLabel.TextSettings.Font.Family := FontFamily;
@@ -503,7 +513,7 @@ var
 begin
   FontSizeStr := FontSizeComboBox.Items[FontSizeComboBox.ItemIndex];
   FontSize := FontSizeStr.ToExtended;
-  FTheme.VisualListSettings.CustomTextSettings.FontSize := FontSize;
+  FTheme.ItemSettings.CustomTextSettings.FontSize := FontSize;
 
   NormalLabel.TextSettings.Font.Size := FontSize;
   FocusedLabel.TextSettings.Font.Size := FontSize;
