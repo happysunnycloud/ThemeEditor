@@ -6,10 +6,10 @@ uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.FormExtUnit,
   FMX.Colors, FMX.StdCtrls, FMX.Controls.Presentation, FMX.Layouts, FMX.Objects,
-  FMX.ThemeUnit, FMX.Edit, FMX.ListBox;
+  FMX.Theme, FMX.Edit, FMX.ListBox, FMX.Menus;
 
-const
-  DEFAUL_FONT_FAMILY = '(Default)';
+//const
+//  DEFAUL_FONT_FAMILY = '(Default)';
 
 type
   TMainForm = class(TFormExt)
@@ -17,17 +17,17 @@ type
     ColorQuad: TColorQuad;
     ColorBox: TColorBox;
     BorderFrameRadioButton: TRadioButton;
-    LabelTextRadioButton: TRadioButton;
-    NormalLabel: TLabel;
-    SelectColorLayout: TLayout;
-    NormalBackgroundRadioButton: TRadioButton;
-    NormalPanel: TPanel;
-    NormalBackgroundRectangle: TRectangle;
-    FocusedBackgroundRadioButton: TRadioButton;
-    FocusedPanel: TPanel;
-    FocusedBackgroundRectangle: TRectangle;
-    FocusedLabel: TLabel;
-    FocusFrameRadioButton: TRadioButton;
+    ItemLabelTextRadioButton: TRadioButton;
+    ItemNormalLabel: TLabel;
+    SettingsLayout: TLayout;
+    ItemNormalBackgroundRadioButton: TRadioButton;
+    ItemNormalPanel: TPanel;
+    ItemNormalBackgroundRectangle: TRectangle;
+    ItemFocusedBackgroundRadioButton: TRadioButton;
+    ItemFocusedPanel: TPanel;
+    ItemFocusedBackgroundRectangle: TRectangle;
+    ItemFocusedLabel: TLabel;
+    ItemFocusFrameRadioButton: TRadioButton;
     NavigateLayout: TLayout;
     SaveButton: TButton;
     LoadButton: TButton;
@@ -47,30 +47,56 @@ type
     PopupMenuItem3Label: TLabel;
     PopupMenuBackgroundRectangle: TRectangle;
     PopupMenuBackgroundRadioButton: TRadioButton;
-    CommontGroupBox: TGroupBox;
-    ItemMouseOverBackgroundRadioButton: TRadioButton;
+    FormGroupBox: TGroupBox;
+    PopupMenuItemMouseOverBackgroundRadioButton: TRadioButton;
     PopupMenuGroupBox: TGroupBox;
-    ItemTextColorRadioButton: TRadioButton;
+    PopupMenuItemTextColorRadioButton: TRadioButton;
     VisualListGroupBox: TGroupBox;
     VisualListLeftLayout: TLayout;
     Layout2: TLayout;
-    ItemBackgroundRadioButton: TRadioButton;
+    PopupMenuItemBackgroundRadioButton: TRadioButton;
     PopupmenuLeftLayout: TLayout;
     Layout4: TLayout;
-    ItemFontSizeComboBox: TComboBox;
     FontFamilyComboBox: TComboBox;
-    ItemFontFamilyComboBox: TComboBox;
+    FormBackgroundRadioButton: TRadioButton;
+    MenuBar1: TMenuBar;
+    ContentLayout: TLayout;
+    SaveMenuItem0: TMenuItem;
+    LoadMenuItem0: TMenuItem;
+    HintGroupBox: TGroupBox;
+    Layout1: TLayout;
+    HintLabelTextRadioButton: TRadioButton;
+    HintBackgroundRadioButton: TRadioButton;
+    Layout3: TLayout;
+    Panel1: TPanel;
+    HintBackgroundRectangle: TRectangle;
+    HintLabel: TLabel;
+    FormCaptionRadioButton: TRadioButton;
+    ColorSettingsLayout: TLayout;
+    FontSettingsLayout: TLayout;
+    Layout5: TLayout;
+    BoldCheckBox: TCheckBox;
+    ItalicCheckBox: TCheckBox;
+    UnderlineCheckBox: TCheckBox;
+    StrikeOutCheckBox: TCheckBox;
+    GroupBox1: TGroupBox;
+    Layout6: TLayout;
+    CommonTextSettingsRadioButton: TRadioButton;
+    Layout7: TLayout;
+    Panel2: TPanel;
+    Rectangle1: TRectangle;
+    CommontTextSettingsLabel: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure ColorQuadChange(Sender: TObject);
     procedure BorderFrameRadioButtonClick(Sender: TObject);
-    procedure LabelTextRadioButtonClick(Sender: TObject);
-    procedure NormalBackgroundRadioButtonClick(Sender: TObject);
-    procedure FocusedBackgroundRadioButtonClick(Sender: TObject);
+    procedure ItemLabelTextRadioButtonClick(Sender: TObject);
+    procedure ItemNormalBackgroundRadioButtonClick(Sender: TObject);
+    procedure ItemFocusedBackgroundRadioButtonClick(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure SaveButtonClick(Sender: TObject);
     procedure LoadButtonClick(Sender: TObject);
     procedure ApplyColorButtonClick(Sender: TObject);
-    procedure FocusFrameRadioButtonClick(Sender: TObject);
+    procedure ItemFocusFrameRadioButtonClick(Sender: TObject);
     procedure PopupMenuItem0RectangleMouseEnter(Sender: TObject);
     procedure PopupMenuItem0RectangleMouseLeave(Sender: TObject);
     procedure PopupMenuItem1RectangleMouseEnter(Sender: TObject);
@@ -78,19 +104,36 @@ type
     procedure PopupMenuItem2RectangleMouseEnter(Sender: TObject);
     procedure PopupMenuItem2RectangleMouseLeave(Sender: TObject);
     procedure PopupMenuBackgroundRadioButtonClick(Sender: TObject);
-    procedure ItemMouseOverBackgroundRadioButtonClick(Sender: TObject);
-    procedure ItemTextColorRadioButtonClick(Sender: TObject);
-    procedure ItemBackgroundRadioButtonClick(Sender: TObject);
+    procedure PopupMenuItemMouseOverBackgroundRadioButtonClick(Sender: TObject);
+    procedure PopupMenuItemTextColorRadioButtonClick(Sender: TObject);
+    procedure PopupMenuItemBackgroundRadioButtonClick(Sender: TObject);
     procedure FontSizeComboBoxChange(Sender: TObject);
-    procedure ItemFontSizeComboBoxChange(Sender: TObject);
-    procedure ItemFontFamilyComboBoxChange(Sender: TObject);
     procedure FontFamilyComboBoxChange(Sender: TObject);
+    procedure FormBackgroundRadioButtonClick(Sender: TObject);
+    procedure SaveMenuItem0Click(Sender: TObject);
+    procedure LoadMenuItem0Click(Sender: TObject);
+    procedure HintBackgroundRadioButtonClick(Sender: TObject);
+    procedure HintLabelTextRadioButtonClick(Sender: TObject);
+    procedure FormGroupBoxClick(Sender: TObject);
+    procedure FormCaptionRadioButtonClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure BoldCheckBoxChange(Sender: TObject);
+    procedure ItalicCheckBoxChange(Sender: TObject);
+    procedure UnderlineCheckBoxChange(Sender: TObject);
+    procedure StrikeOutCheckBoxChange(Sender: TObject);
+    procedure CommonTextSettingsRadioButtonClick(Sender: TObject);
   private
     FTheme: TTheme;
 
     procedure ThemeApply;
 
     procedure SetColor(const AColor: TAlphaColor);
+    procedure SetTextSettings(const ACustomTextSettings: TCustomTextSettings);
+
+    procedure Save(const AFileName: String);
+    procedure Load(const AFileName: String);
+
+    procedure ProcessTextStyleCheckBoxes;
   public
     { Public declarations }
   end;
@@ -106,114 +149,118 @@ uses
     System.UIConsts
   , ParamsExtUnit
   , FMX.ImageToolsUnit
-  , BorderFrameUnit;
+  , FMX.ControlToolsUnit
+//  , BorderFrameUnit
+  ;
 
 procedure TMainForm.ThemeApply;
 begin
-//  FTheme.FormSettings.BorderFrameKind := bfkNone;
-  BorderFrame.BorderColor := FTheme.FormSettings.BorderFrameColor;
+  Self.Fill.Color := FTheme.FormSettings.BackgroundColor;
+  BorderFrame.Color := FTheme.FormSettings.BorderFrameColor;
+  BorderFrame.CaptionColor := FTheme.FormSettings.CustomTextSettings.FontColor;
 
-  NormalLabel.FontColor := FTheme.TextSettings.FontColor;
-  FocusedLabel.FontColor := FTheme.TextSettings.FontColor;
-  NormalLabel.TextSettings.Font.Family := FTheme.ItemSettings.CustomTextSettings.FontFamily;
-  FocusedLabel.TextSettings.Font.Family := FTheme.ItemSettings.CustomTextSettings.FontFamily;
+  FTheme.FormSettings.CustomTextSettings.ApplyTo(BorderFrame.CaptionText);
 
-  NormalBackgroundRectangle.Fill.Color := FTheme.ItemSettings.ItemBackgroundColor;
-  FocusedBackgroundRectangle.Fill.Color := FTheme.ItemSettings.FocusedItemBackgroundColor;
-  FocusedBackgroundRectangle.Stroke.Color := FTheme.ItemSettings.FocusFrameColor;
-  NormalBackgroundRectangle.Stroke.Color := FocusedBackgroundRectangle.Stroke.Color;
+  FTheme.CommonSettings.CustomTextSettings.ApplyTo(CommontTextSettingsLabel);
+
+  ItemNormalLabel.TextSettings.FontColor := FTheme.ItemSettings.CustomTextSettings.FontColor;
+  ItemFocusedLabel.TextSettings.FontColor := FTheme.ItemSettings.CustomTextSettings.FontColor;
+
+  FTheme.ItemSettings.CustomTextSettings.ApplyTo(ItemNormalLabel);
+  FTheme.ItemSettings.CustomTextSettings.ApplyTo(ItemFocusedLabel);
+
+  ItemNormalBackgroundRectangle.Fill.Color := FTheme.ItemSettings.NormalBackgroundColor;
+  ItemFocusedBackgroundRectangle.Fill.Color := FTheme.ItemSettings.FocusedBackgroundColor;
+  ItemFocusedBackgroundRectangle.Stroke.Color := FTheme.ItemSettings.FocusFrameColor;
+  ItemNormalBackgroundRectangle.Stroke.Color := ItemFocusedBackgroundRectangle.Stroke.Color;
 
   PopupMenuBackgroundRectangle.Fill.Color := FTheme.PopUpMenuSettings.BackgroundColor;
-  PopupMenuItem0Rectangle.Fill.Color := FTheme.PopUpMenuSettings.ItemBackgroundColor;
-  PopupMenuItem1Rectangle.Fill.Color := FTheme.PopUpMenuSettings.ItemBackgroundColor;
-  PopupMenuItem2Rectangle.Fill.Color := FTheme.PopUpMenuSettings.ItemBackgroundColor;
-  PopupMenuItem3Rectangle.Fill.Color := FTheme.PopUpMenuSettings.ItemMouseOverColor;
+  PopupMenuItem0Rectangle.Fill.Color := FTheme.PopUpMenuSettings.NormalBackgroundColor;
+  PopupMenuItem1Rectangle.Fill.Color := FTheme.PopUpMenuSettings.NormalBackgroundColor;
+  PopupMenuItem2Rectangle.Fill.Color := FTheme.PopUpMenuSettings.NormalBackgroundColor;
+  PopupMenuItem3Rectangle.Fill.Color := FTheme.PopUpMenuSettings.MouseOverColor;
 
-  PopupMenuItem0Label.StyledSettings := [];
-  PopupMenuItem1Label.StyledSettings := [];
-  PopupMenuItem2Label.StyledSettings := [];
-  PopupMenuItem3Label.StyledSettings := [];
+  FTheme.PopUpMenuSettings.CustomTextSettings.ApplyTo(PopupMenuItem0Label);
+  FTheme.PopUpMenuSettings.CustomTextSettings.ApplyTo(PopupMenuItem1Label);
+  FTheme.PopUpMenuSettings.CustomTextSettings.ApplyTo(PopupMenuItem2Label);
+  FTheme.PopUpMenuSettings.CustomTextSettings.ApplyTo(PopupMenuItem3Label);
 
-  PopupMenuItem0Label.TextSettings.FontColor := FTheme.PopUpMenuSettings.CustomTextSettings.FontColor;
-  PopupMenuItem1Label.TextSettings.FontColor := FTheme.PopUpMenuSettings.CustomTextSettings.FontColor;
-  PopupMenuItem2Label.TextSettings.FontColor := FTheme.PopUpMenuSettings.CustomTextSettings.FontColor;
-  PopupMenuItem3Label.TextSettings.FontColor := FTheme.PopUpMenuSettings.CustomTextSettings.FontColor;
+  HintBackgroundRectangle.Fill.Color := FTheme.HintSettings.BackgroundColor;
+  FTheme.HintSettings.CustomTextSettings.ApplyTo(HintLabel);
+end;
 
-  PopupMenuItem0Label.TextSettings.Font.Family := FTheme.PopUpMenuSettings.CustomTextSettings.FontFamily;
-  PopupMenuItem1Label.TextSettings.Font.Family := FTheme.PopUpMenuSettings.CustomTextSettings.FontFamily;
-  PopupMenuItem2Label.TextSettings.Font.Family := FTheme.PopUpMenuSettings.CustomTextSettings.FontFamily;
-  PopupMenuItem3Label.TextSettings.Font.Family := FTheme.PopUpMenuSettings.CustomTextSettings.FontFamily;
+procedure TMainForm.UnderlineCheckBoxChange(Sender: TObject);
+begin
+  ProcessTextStyleCheckBoxes;
 end;
 
 procedure TMainForm.SaveButtonClick(Sender: TObject);
-var
-  Params: TParamsExt;
 begin
-  Params := TParamsExt.Create;
-  try
-    Params.Add('THEMEFILE', 'FILE_SIGNATURE');
-    Params.Add(0, 'FILE_VESRION');
-
-    Params.Add(FTheme.BorderFrameColor, 'BorderFrameColor');
-    Params.Add(FTheme.TextSettings.FontColor, 'TextSettingsFontColor');
-
-    Params.ObjectToParams(FTheme.FormSettings);
-    Params.ObjectToParams(FTheme.ItemSettings);
-    Params.ObjectToParams(FTheme.PopUpMenuSettings);
-
-    Params.SaveToFile('theme.bin');
-  finally
-    Params.Free;
-  end;
+  Save('theme.bin');
 end;
 
 procedure TMainForm.LoadButtonClick(Sender: TObject);
-var
-  Params: TParamsExt;
-  FontFamily: String;
-  Index: Integer;
 begin
-  Params := TParamsExt.Create;
+  Load('theme.bin');
+end;
+
+procedure TMainForm.LoadMenuItem0Click(Sender: TObject);
+var
+  OpenDialog: TOpenDialog;
+  LoadFileName: String;
+begin
+  LoadFileName := '';
+
+  OpenDialog := TOpenDialog.Create(self);
+  OpenDialog.InitialDir := ParamStr(0);
+  OpenDialog.Filter := 'Theme files|*.thm';
+  OpenDialog.FilterIndex := 2;
+
+  if OpenDialog.Execute then
+    LoadFileName := OpenDialog.FileName;
+
+  OpenDialog.Free;
+
+  if LoadFileName.Length = 0 then
+    Exit;
+
+  Load(LoadFileName);
+end;
+
+procedure TMainForm.SaveMenuItem0Click(Sender: TObject);
+var
+  SaveDialog: TSaveDialog;
+  SaveFileName: String;
+  Ext: String;
+begin
+  SaveDialog := TSaveDialog.Create(self);
   try
-    Params.LoadFromFile('theme.bin');
+    SaveDialog.InitialDir := ParamStr(0);
+    SaveDialog.Filter := 'Theme files|*.thm';
+    SaveDialog.FilterIndex := 2;
 
-    FTheme.BorderFrameColor := Params.AsCardinalByIdent['BorderFrameColor'];
-    FTheme.TextSettings.FontColor := Params.AsCardinalByIdent['TextSettingsFontColor'];
-
-    Params.ParamsToObject(FTheme.FormSettings);
-    Params.ParamsToObject(FTheme.ItemSettings);
-    Params.ParamsToObject(FTheme.PopUpMenuSettings);
+    SaveFileName := '';
+    if SaveDialog.Execute then
+    begin
+      SaveFileName := SaveDialog.FileName;
+      Ext := ExtractFileExt(SaveFileName);
+      if Ext.Length = 0 then
+        SaveFileName := SaveDialog.FileName + '.thm';
+    end;
   finally
-    Params.Free;
+    SaveDialog.Free;
   end;
 
-  ThemeApply;
+  if SaveFileName.Length = 0 then
+    Exit;
 
-  SetColor(FTheme.BorderFrameColor);
+  if FileExists(SaveFileName) then
+    if not DeleteFile(SaveFileName) then
+      raise Exception.CreateFmt('Can not delete file "%s"', [SaveFileName]);
 
-  Index :=
-    FontSizeComboBox.Items.
-      IndexOf(FTheme.ItemSettings.CustomTextSettings.FontSize.ToString);
-  FontSizeComboBox.ItemIndex := Index;
+  Save(SaveFileName);
 
-  FontFamily := FTheme.ItemSettings.CustomTextSettings.FontFamily;
-  if FontFamily.Length = 0 then
-    FontFamily := DEFAUL_FONT_FAMILY;
-  Index := FontFamilyComboBox.Items.IndexOf(FontFamily);
-  FontFamilyComboBox.ItemIndex := Index;
-
-  // ---------- //
-
-  Index :=
-    ItemFontSizeComboBox.Items.
-      IndexOf(FTheme.PopUpMenuSettings.CustomTextSettings.FontSize.ToString);
-  ItemFontSizeComboBox.ItemIndex := Index;
-
-  FontFamily := FTheme.PopUpMenuSettings.CustomTextSettings.FontFamily;
-  if FontFamily.Length = 0 then
-    FontFamily := DEFAUL_FONT_FAMILY;
-  Index := ItemFontFamilyComboBox.Items.IndexOf(FontFamily);
-  ItemFontFamilyComboBox.ItemIndex := Index;
+  ShowMessage('Done');
 end;
 
 procedure TMainForm.SetColor(const AColor: TAlphaColor);
@@ -221,7 +268,7 @@ var
   NotifyEvent: TNotifyEvent;
   Lum, Sat, Hue: Single;
 begin
-//  HEXEdit.Text := TImageTools.ColorToHex(AColor);
+  HEXEdit.Text := TImageTools.ColorToHex(AColor);
 
   NotifyEvent := ColorQuad.OnChange;
   ColorQuad.OnChange := nil;
@@ -237,74 +284,126 @@ begin
   ColorQuad.OnChange := NotifyEvent;
 end;
 
+procedure TMainForm.SetTextSettings(const ACustomTextSettings: TCustomTextSettings);
+begin
+  FontSizeComboBox.ItemIndex :=
+    FontSizeComboBox.Items.IndexOf(ACustomTextSettings.FontSize.ToString);
+  FontFamilyComboBox.ItemIndex :=
+    FontFamilyComboBox.Items.IndexOf(ACustomTextSettings.FontFamily);
+
+  BoldCheckBox.SilentIsCheckChange(ACustomTextSettings.Bold);
+  ItalicCheckBox.SilentIsCheckChange(ACustomTextSettings.Italic);
+  UnderlineCheckBox.SilentIsCheckChange(ACustomTextSettings.Underline);
+  StrikeOutCheckBox.SilentIsCheckChange(ACustomTextSettings.StrikeOut);
+end;
+
+procedure TMainForm.StrikeOutCheckBoxChange(Sender: TObject);
+begin
+  ProcessTextStyleCheckBoxes;
+end;
+
 procedure TMainForm.ColorQuadChange(Sender: TObject);
 var
   Color: TAlphaColor;
 begin
   Color := ColorQuad.ColorBox.Color;
   HEXEdit.Text := TImageTools.ColorToHex(Color);
-//  SetColor(Color);
 
   if BorderFrameRadioButton.IsChecked then
   begin
     FTheme.FormSettings.BorderFrameColor := Color;
-    BorderFrame.BorderColor := Color;
   end
   else
-  if LabelTextRadioButton.IsChecked then
+  if FormBackgroundRadioButton.IsChecked then
   begin
-    FTheme.TextSettings.FontColor := Color;
-    NormalLabel.FontColor := Color;
-    FocusedLabel.FontColor := Color;
+    FTheme.FormSettings.BackgroundColor := Color;
   end
   else
-  if NormalBackgroundRadioButton.IsChecked then
+  if FormCaptionRadioButton.IsChecked then
   begin
-    FTheme.ItemSettings.ItemBackgroundColor := Color;
-    NormalBackgroundRectangle.Fill.Color := Color;
+    FTheme.FormSettings.CustomTextSettings.FontColor := Color;
   end
   else
-  if FocusedBackgroundRadioButton.IsChecked then
+  if CommonTextSettingsRadioButton.IsChecked then
   begin
-    FTheme.ItemSettings.FocusedItemBackgroundColor := Color;
-    FocusedBackgroundRectangle.Fill.Color := Color;
+    FTheme.CommonSettings.CustomTextSettings.FontColor := Color;
   end
   else
-  if FocusFrameRadioButton.IsChecked then
+  if ItemLabelTextRadioButton.IsChecked then
+  begin
+    FTheme.ItemSettings.CustomTextSettings.FontColor := Color;
+  end
+  else
+  if ItemNormalBackgroundRadioButton.IsChecked then
+  begin
+    FTheme.ItemSettings.NormalBackgroundColor := Color;
+  end
+  else
+  if ItemFocusedBackgroundRadioButton.IsChecked then
+  begin
+    FTheme.ItemSettings.FocusedBackgroundColor := Color;
+  end
+  else
+  if ItemFocusFrameRadioButton.IsChecked then
   begin
     FTheme.ItemSettings.FocusFrameColor := Color;
-    NormalBackgroundRectangle.Stroke.Color := Color;
-    FocusedBackgroundRectangle.Stroke.Color := Color;
   end
   else
   if PopupMenuBackgroundRadioButton.IsChecked then
   begin
     FTheme.PopUpMenuSettings.BackgroundColor := Color;
-    PopupMenuBackgroundRectangle.Fill.Color := Color;
   end
   else
-  if ItemBackgroundRadioButton.IsChecked then
+  if PopupMenuItemBackgroundRadioButton.IsChecked then
   begin
-    FTheme.PopUpMenuSettings.ItemBackgroundColor := Color;
-    PopupMenuItem0Rectangle.Fill.Color := Color;
-    PopupMenuItem1Rectangle.Fill.Color := Color;
-    PopupMenuItem2Rectangle.Fill.Color := Color;
+    FTheme.PopUpMenuSettings.NormalBackgroundColor := Color;
   end
   else
-  if ItemMouseOverBackgroundRadioButton.IsChecked then
+  if PopupMenuItemMouseOverBackgroundRadioButton.IsChecked then
   begin
-    FTheme.PopUpMenuSettings.ItemMouseOverColor := Color;
-    PopupMenuItem3Rectangle.Fill.Color := Color;
+    FTheme.PopUpMenuSettings.MouseOverColor := Color;
   end
   else
-  if ItemTextColorRadioButton.IsChecked then
+  if PopupMenuItemTextColorRadioButton.IsChecked then
   begin
     FTheme.PopUpMenuSettings.CustomTextSettings.FontColor := Color;
-    PopupMenuItem0Label.TextSettings.FontColor := Color;
-    PopupMenuItem1Label.TextSettings.FontColor := Color;
-    PopupMenuItem2Label.TextSettings.FontColor := Color;
-    PopupMenuItem3Label.TextSettings.FontColor := Color;
+  end
+  else
+  if HintBackgroundRadioButton.IsChecked then
+  begin
+    FTheme.HintSettings.BackgroundColor := Color;
+  end
+  else
+  if HintLabelTextRadioButton.IsChecked then
+  begin
+    FTheme.HintSettings.CustomTextSettings.FontColor := Color;
   end;
+
+  ThemeApply;
+end;
+
+procedure TMainForm.CommonTextSettingsRadioButtonClick(Sender: TObject);
+begin
+  CommonTextSettingsRadioButton.IsChecked := true;
+
+  SetTextSettings(FTheme.CommonSettings.CustomTextSettings);
+
+  SetColor(FTheme.CommonSettings.CustomTextSettings.FontColor);
+end;
+
+procedure TMainForm.FormBackgroundRadioButtonClick(Sender: TObject);
+begin
+  FormBackgroundRadioButton.IsChecked := true;
+  SetColor(FTheme.FormSettings.BackgroundColor);
+end;
+
+procedure TMainForm.FormCaptionRadioButtonClick(Sender: TObject);
+begin
+  FormCaptionRadioButton.IsChecked := true;
+
+  SetTextSettings(FTheme.FormSettings.CustomTextSettings);
+
+  SetColor(FTheme.FormSettings.CustomTextSettings.FontColor);
 end;
 
 procedure TMainForm.FormCreate(Sender: TObject);
@@ -314,39 +413,48 @@ begin
   ReportMemoryLeaksOnShutdown := true;
 
   FTheme := TTheme.Create;
+  FTheme.FormSettings.BackgroundColor := TAlphaColorRec.Black;
+  BorderFrame.Kind := TBorderFrameKind.bfkNormal;
 
-  BorderFrame.BorderFrameKind := TBorderFrameKind.bfkNormal;
+  Self.Fill.Color := FTheme.FormSettings.BackgroundColor;
+  BorderFrame.Color := FTheme.FormSettings.BorderFrameColor;
+  BorderFrame.CaptionColor := FTheme.FormSettings.CustomTextSettings.FontColor;
+  BorderFrame.CaptionText.TextSettings.Font.Size := FTheme.FormSettings.CustomTextSettings.FontSize;
 
   BorderFrameRadioButton.IsChecked := true;
 
   for i := 8 to 28 do
   begin
     FontSizeComboBox.Items.Add(i.ToString);
-    ItemFontSizeComboBox.Items.Add(i.ToString);
   end;
 
-  FontSizeComboBox.ItemIndex :=
-    FontSizeComboBox.Items.IndexOf('12');
-  ItemFontSizeComboBox.ItemIndex :=
-    ItemFontSizeComboBox.Items.IndexOf('12');
+  FontSizeComboBox.SilentIndexChange(FontSizeComboBox.Items.IndexOf('12'));
 
   // ------------ //
 
   FontFamilyComboBox.Items.Add(DEFAUL_FONT_FAMILY);
+  FontFamilyComboBox.Items.Add('Segoe UI');
+  FontFamilyComboBox.Items.Add('Tahoma');
   FontFamilyComboBox.Items.Add('Arial');
   FontFamilyComboBox.Items.Add('Times New Roman');
   FontFamilyComboBox.Items.Add('Courier New');
 
-  FontFamilyComboBox.ItemIndex :=
-    FontFamilyComboBox.Items.IndexOf(DEFAUL_FONT_FAMILY);
+  FontFamilyComboBox.SilentIndexChange(
+    FontFamilyComboBox.Items.IndexOf('Segoe UI'));
 
-  ItemFontFamilyComboBox.Items.Add(DEFAUL_FONT_FAMILY);
-  ItemFontFamilyComboBox.Items.Add('Arial');
-  ItemFontFamilyComboBox.Items.Add('Times New Roman');
-  ItemFontFamilyComboBox.Items.Add('Courier New');
+//  FTheme.HintSettings.CustomTextSettings.FontFamily := 'Segoe UI';
 
-  ItemFontFamilyComboBox.ItemIndex :=
-    ItemFontFamilyComboBox.Items.IndexOf(DEFAUL_FONT_FAMILY);
+//  TThread.CreateAnonymousThread(
+//    procedure
+//    begin
+//      Sleep(3000);
+//
+//      TThread.ForceQueue(nil,
+//        procedure
+//        begin
+//          FTheme.FormSettings.Apply;
+//        end);
+//    end).Start;
 
   ThemeApply;
 end;
@@ -356,56 +464,67 @@ begin
   FTheme.Free;
 end;
 
-procedure TMainForm.ItemBackgroundRadioButtonClick(Sender: TObject);
+procedure TMainForm.FormGroupBoxClick(Sender: TObject);
 begin
-  SetColor(FTheme.PopUpMenuSettings.ItemBackgroundColor);
-  ItemBackgroundRadioButton.IsChecked := true;
+begin
+  SetColor(Self.Fill.Color);
+  FormCaptionRadioButton.IsChecked := true;
   ColorQuadChange(nil);
 end;
-
-procedure TMainForm.ItemFontFamilyComboBoxChange(Sender: TObject);
-var
-  FontFamily: String;
-begin
-  FontFamily := ItemFontFamilyComboBox.Items[ItemFontFamilyComboBox.ItemIndex];
-  if FontFamily = DEFAUL_FONT_FAMILY then
-    FontFamily := '';
-
-  FTheme.PopUpMenuSettings.CustomTextSettings.FontFamily := FontFamily;
-
-  PopupMenuItem0Label.TextSettings.Font.Family := FontFamily;
-  PopupMenuItem1Label.TextSettings.Font.Family := FontFamily;
-  PopupMenuItem2Label.TextSettings.Font.Family := FontFamily;
-  PopupMenuItem3Label.TextSettings.Font.Family := FontFamily;
 end;
 
-procedure TMainForm.ItemFontSizeComboBoxChange(Sender: TObject);
-var
-  FontSizeStr: String;
-  FontSize: Single;
+procedure TMainForm.FormShow(Sender: TObject);
 begin
-  FontSizeStr := ItemFontSizeComboBox.Items[ItemFontSizeComboBox.ItemIndex];
-  FontSize := FontSizeStr.ToExtended;
-  FTheme.PopUpMenuSettings.CustomTextSettings.FontSize := FontSize;
-
-  PopupMenuItem0Label.TextSettings.Font.Size := FontSize;
-  PopupMenuItem1Label.TextSettings.Font.Size := FontSize;
-  PopupMenuItem2Label.TextSettings.Font.Size := FontSize;
-  PopupMenuItem3Label.TextSettings.Font.Size := FontSize;
+//  TThread.CreateAnonymousThread(
+//    procedure
+//    begin
+//      Sleep(1000);
+//
+//      TThread.ForceQueue(nil,
+//        procedure
+//        begin
+//          ThemeApply;
+//        end);
+//    end).Start;
 end;
 
-procedure TMainForm.ItemMouseOverBackgroundRadioButtonClick(Sender: TObject);
+procedure TMainForm.HintBackgroundRadioButtonClick(Sender: TObject);
 begin
-  SetColor(FTheme.PopUpMenuSettings.ItemMouseOverColor);
-  ItemMouseOverBackgroundRadioButton.IsChecked := true;
-  ColorQuadChange(nil);
+  HintBackgroundRadioButton.IsChecked := true;
+
+  SetColor(FTheme.HintSettings.BackgroundColor);
 end;
 
-procedure TMainForm.ItemTextColorRadioButtonClick(Sender: TObject);
+procedure TMainForm.HintLabelTextRadioButtonClick(Sender: TObject);
 begin
+  HintLabelTextRadioButton.IsChecked := true;
+
+  SetTextSettings(FTheme.HintSettings.CustomTextSettings);
+
+  SetColor(FTheme.HintSettings.CustomTextSettings.FontColor);
+end;
+
+procedure TMainForm.PopupMenuItemBackgroundRadioButtonClick(Sender: TObject);
+begin
+  PopupMenuItemBackgroundRadioButton.IsChecked := true;
+
+  SetColor(FTheme.PopUpMenuSettings.MouseOverColor);
+end;
+
+procedure TMainForm.PopupMenuItemMouseOverBackgroundRadioButtonClick(Sender: TObject);
+begin
+  PopupMenuItemMouseOverBackgroundRadioButton.IsChecked := true;
+
+  SetColor(FTheme.PopUpMenuSettings.MouseOverColor);
+end;
+
+procedure TMainForm.PopupMenuItemTextColorRadioButtonClick(Sender: TObject);
+begin
+  PopupMenuItemTextColorRadioButton.IsChecked := true;
+
+  SetTextSettings(FTheme.PopUpMenuSettings.CustomTextSettings);
+
   SetColor(FTheme.PopUpMenuSettings.CustomTextSettings.FontColor);
-  ItemTextColorRadioButton.IsChecked := true;
-  ColorQuadChange(nil);
 end;
 
 procedure TMainForm.ApplyColorButtonClick(Sender: TObject);
@@ -420,76 +539,133 @@ begin
   ColorQuadChange(nil);
 end;
 
+procedure TMainForm.BoldCheckBoxChange(Sender: TObject);
+begin
+  ProcessTextStyleCheckBoxes;
+end;
+
 procedure TMainForm.BorderFrameRadioButtonClick(Sender: TObject);
 begin
-  SetColor(BorderFrame.BorderColor);
   BorderFrameRadioButton.IsChecked := true;
-  ColorQuadChange(nil);
+
+  SetColor(FTheme.FormSettings.BorderFrameColor);
 end;
 
-procedure TMainForm.LabelTextRadioButtonClick(Sender: TObject);
+procedure TMainForm.ItemLabelTextRadioButtonClick(Sender: TObject);
 begin
-  SetColor(NormalLabel.FontColor);
-  LabelTextRadioButton.IsChecked := true;
-  ColorQuadChange(nil);
+  ItemLabelTextRadioButton.IsChecked := true;
+
+  SetTextSettings(FTheme.ItemSettings.CustomTextSettings);
+
+  SetColor(FTheme.ItemSettings.CustomTextSettings.FontColor);
 end;
 
-procedure TMainForm.NormalBackgroundRadioButtonClick(Sender: TObject);
+procedure TMainForm.ItemNormalBackgroundRadioButtonClick(Sender: TObject);
 begin
-  SetColor(NormalBackgroundRectangle.Fill.Color);
-  NormalBackgroundRadioButton.IsChecked := true;
-  ColorQuadChange(nil);
+  ItemNormalBackgroundRadioButton.IsChecked := true;
+
+  SetColor(FTheme.ItemSettings.NormalBackgroundColor);
 end;
 
 procedure TMainForm.PopupMenuItem0RectangleMouseEnter(Sender: TObject);
 begin
-  PopupMenuItem0Rectangle.Fill.Color := FTheme.PopUpMenuSettings.ItemMouseOverColor;
+  PopupMenuItem0Rectangle.Fill.Color := FTheme.PopUpMenuSettings.MouseOverColor;
 end;
 
 procedure TMainForm.PopupMenuItem0RectangleMouseLeave(Sender: TObject);
 begin
-  PopupMenuItem0Rectangle.Fill.Color := FTheme.PopUpMenuSettings.ItemBackgroundColor;
+  PopupMenuItem0Rectangle.Fill.Color := FTheme.PopUpMenuSettings.NormalBackgroundColor;
 end;
 
 procedure TMainForm.PopupMenuItem1RectangleMouseEnter(Sender: TObject);
 begin
-  PopupMenuItem1Rectangle.Fill.Color := FTheme.PopUpMenuSettings.ItemMouseOverColor;
+  PopupMenuItem1Rectangle.Fill.Color := FTheme.PopUpMenuSettings.MouseOverColor;
 end;
 
 procedure TMainForm.PopupMenuItem1RectangleMouseLeave(Sender: TObject);
 begin
-  PopupMenuItem1Rectangle.Fill.Color := FTheme.PopUpMenuSettings.ItemBackgroundColor;
+  PopupMenuItem1Rectangle.Fill.Color := FTheme.PopUpMenuSettings.NormalBackgroundColor;
 end;
 
 procedure TMainForm.PopupMenuItem2RectangleMouseEnter(Sender: TObject);
 begin
-  PopupMenuItem2Rectangle.Fill.Color := FTheme.PopUpMenuSettings.ItemMouseOverColor;
+  PopupMenuItem2Rectangle.Fill.Color := FTheme.PopUpMenuSettings.MouseOverColor;
 end;
 
 procedure TMainForm.PopupMenuItem2RectangleMouseLeave(Sender: TObject);
 begin
-  PopupMenuItem2Rectangle.Fill.Color := FTheme.PopUpMenuSettings.ItemBackgroundColor;
+  PopupMenuItem2Rectangle.Fill.Color := FTheme.PopUpMenuSettings.NormalBackgroundColor;
 end;
 
 procedure TMainForm.PopupMenuBackgroundRadioButtonClick(Sender: TObject);
 begin
-  SetColor(FTheme.PopUpMenuSettings.BackgroundColor);
   PopupMenuBackgroundRadioButton.IsChecked := true;
-  ColorQuadChange(nil);
+
+  SetColor(FTheme.PopUpMenuSettings.BackgroundColor);
 end;
 
-procedure TMainForm.FocusedBackgroundRadioButtonClick(Sender: TObject);
+procedure TMainForm.ProcessTextStyleCheckBoxes;
 begin
-  SetColor(FocusedBackgroundRectangle.Fill.Color);
-  FocusedBackgroundRadioButton.IsChecked := true;
-  ColorQuadChange(nil);
+  if FormCaptionRadioButton.IsChecked then
+  begin
+    FTheme.FormSettings.CustomTextSettings.Bold := BoldCheckBox.IsChecked;
+    FTheme.FormSettings.CustomTextSettings.Italic := ItalicCheckBox.IsChecked;
+    FTheme.FormSettings.CustomTextSettings.Underline := UnderlineCheckBox.IsChecked;
+    FTheme.FormSettings.CustomTextSettings.StrikeOut := StrikeOutCheckBox.IsChecked;
+  end
+  else
+  if CommonTextSettingsRadioButton.IsChecked then
+  begin
+    FTheme.CommonSettings.CustomTextSettings.Bold := BoldCheckBox.IsChecked;
+    FTheme.CommonSettings.CustomTextSettings.Italic := ItalicCheckBox.IsChecked;
+    FTheme.CommonSettings.CustomTextSettings.Underline := UnderlineCheckBox.IsChecked;
+    FTheme.CommonSettings.CustomTextSettings.StrikeOut := StrikeOutCheckBox.IsChecked;
+  end
+  else
+  if ItemLabelTextRadioButton.IsChecked then
+  begin
+    FTheme.ItemSettings.CustomTextSettings.Bold := BoldCheckBox.IsChecked;
+    FTheme.ItemSettings.CustomTextSettings.Italic := ItalicCheckBox.IsChecked;
+    FTheme.ItemSettings.CustomTextSettings.Underline := UnderlineCheckBox.IsChecked;
+    FTheme.ItemSettings.CustomTextSettings.StrikeOut := StrikeOutCheckBox.IsChecked;
+  end
+  else
+  if HintLabelTextRadioButton.IsChecked then
+  begin
+    FTheme.HintSettings.CustomTextSettings.Bold := BoldCheckBox.IsChecked;
+    FTheme.HintSettings.CustomTextSettings.Italic := ItalicCheckBox.IsChecked;
+    FTheme.HintSettings.CustomTextSettings.Underline := UnderlineCheckBox.IsChecked;
+    FTheme.HintSettings.CustomTextSettings.StrikeOut := StrikeOutCheckBox.IsChecked;
+  end
+  else
+  if PopupMenuItemTextColorRadioButton.IsChecked then
+  begin
+    FTheme.PopUpMenuSettings.CustomTextSettings.Bold := BoldCheckBox.IsChecked;
+    FTheme.PopUpMenuSettings.CustomTextSettings.Italic := ItalicCheckBox.IsChecked;
+    FTheme.PopUpMenuSettings.CustomTextSettings.Underline := UnderlineCheckBox.IsChecked;
+    FTheme.PopUpMenuSettings.CustomTextSettings.StrikeOut := StrikeOutCheckBox.IsChecked;
+  end;
+
+  ThemeApply;
 end;
 
-procedure TMainForm.FocusFrameRadioButtonClick(Sender: TObject);
+procedure TMainForm.ItalicCheckBoxChange(Sender: TObject);
 begin
-  SetColor(FocusedBackgroundRectangle.Stroke.Color);
-  FocusFrameRadioButton.IsChecked := true;
-  ColorQuadChange(nil);
+  ProcessTextStyleCheckBoxes;
+end;
+
+procedure TMainForm.ItemFocusedBackgroundRadioButtonClick(Sender: TObject);
+begin
+  ItemFocusedBackgroundRadioButton.IsChecked := true;
+
+  SetColor(FTheme.ItemSettings.FocusedBackgroundColor);
+end;
+
+procedure TMainForm.ItemFocusFrameRadioButtonClick(Sender: TObject);
+begin
+  ItemFocusFrameRadioButton.IsChecked := true;
+
+  SetColor(FTheme.ItemSettings.FocusFrameColor);
 end;
 
 procedure TMainForm.FontFamilyComboBoxChange(Sender: TObject);
@@ -500,10 +676,31 @@ begin
   if FontFamily = DEFAUL_FONT_FAMILY then
     FontFamily := '';
 
-  FTheme.ItemSettings.CustomTextSettings.FontFamily := FontFamily;
+  if FormCaptionRadioButton.IsChecked then
+  begin
+    FTheme.FormSettings.CustomTextSettings.FontFamily := FontFamily;
+  end
+  else
+  if CommonTextSettingsRadioButton.IsChecked then
+  begin
+    FTheme.CommonSettings.CustomTextSettings.FontFamily := FontFamily;
+  end;
+  if ItemLabelTextRadioButton.IsChecked then
+  begin
+    FTheme.ItemSettings.CustomTextSettings.FontFamily := FontFamily;
+  end
+  else
+  if HintLabelTextRadioButton.IsChecked then
+  begin
+    FTheme.HintSettings.CustomTextSettings.FontFamily := FontFamily;
+  end
+  else
+  if PopupMenuItemTextColorRadioButton.IsChecked then
+  begin
+    FTheme.PopUpMenuSettings.CustomTextSettings.FontFamily := FontFamily;
+  end;
 
-  NormalLabel.TextSettings.Font.Family := FontFamily;
-  FocusedLabel.TextSettings.Font.Family := FontFamily;
+  ThemeApply;
 end;
 
 procedure TMainForm.FontSizeComboBoxChange(Sender: TObject);
@@ -513,10 +710,62 @@ var
 begin
   FontSizeStr := FontSizeComboBox.Items[FontSizeComboBox.ItemIndex];
   FontSize := FontSizeStr.ToExtended;
-  FTheme.ItemSettings.CustomTextSettings.FontSize := FontSize;
 
-  NormalLabel.TextSettings.Font.Size := FontSize;
-  FocusedLabel.TextSettings.Font.Size := FontSize;
+  if FormCaptionRadioButton.IsChecked then
+  begin
+    FTheme.FormSettings.CustomTextSettings.FontSize := FontSize;
+  end
+  else
+  if CommonTextSettingsRadioButton.IsChecked then
+  begin
+    FTheme.CommonSettings.CustomTextSettings.FontSize := FontSize;
+  end
+  else
+  if ItemLabelTextRadioButton.IsChecked then
+  begin
+    FTheme.ItemSettings.CustomTextSettings.FontSize := FontSize;
+  end
+  else
+  if HintLabelTextRadioButton.IsChecked then
+  begin
+    FTheme.HintSettings.CustomTextSettings.FontSize := FontSize;
+  end
+  else
+  if PopupMenuItemTextColorRadioButton.IsChecked then
+  begin
+    FTheme.PopUpMenuSettings.CustomTextSettings.FontSize := FontSize;
+  end;
+
+  ThemeApply;
+end;
+
+procedure TMainForm.Save(const AFileName: String);
+begin
+  FTheme.SaveToFile(AFileName);
+end;
+
+procedure TMainForm.Load(const AFileName: String);
+var
+  FontFamily: String;
+  Index: Integer;
+begin
+  if not FileExists(AFileName) then
+    raise Exception.CreateFmt('File "%s" not exists', [AFileName]);
+
+  FTheme.LoadFromFile(AFileName);
+
+  ThemeApply;
+
+  Index :=
+    FontSizeComboBox.Items.
+      IndexOf(FTheme.ItemSettings.CustomTextSettings.FontSize.ToString);
+  FontSizeComboBox.ItemIndex := Index;
+
+  FontFamily := FTheme.ItemSettings.CustomTextSettings.FontFamily;
+  if FontFamily.Length = 0 then
+    FontFamily := DEFAUL_FONT_FAMILY;
+  Index := FontFamilyComboBox.Items.IndexOf(FontFamily);
+  FontFamilyComboBox.ItemIndex := Index;
 end;
 
 end.
