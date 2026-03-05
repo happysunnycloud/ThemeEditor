@@ -185,8 +185,8 @@ begin
   FTheme.PopUpMenuSettings.CustomTextSettings.ApplyTo(PopupMenuItem2Label);
   FTheme.PopUpMenuSettings.CustomTextSettings.ApplyTo(PopupMenuItem3Label);
 
-  HintBackgroundRectangle.Fill.Color := FTheme.HintSettings.BackgroundColor;
-  FTheme.HintSettings.CustomTextSettings.ApplyTo(HintLabel);
+  HintBackgroundRectangle.Fill.Color := FTheme.HintTheme.BackgroundColor;
+  FTheme.HintTheme.CustomTextSettings.ApplyTo(HintLabel);
 end;
 
 procedure TMainForm.UnderlineCheckBoxChange(Sender: TObject);
@@ -371,12 +371,12 @@ begin
   else
   if HintBackgroundRadioButton.IsChecked then
   begin
-    FTheme.HintSettings.BackgroundColor := Color;
+    FTheme.HintTheme.BackgroundColor := Color;
   end
   else
   if HintLabelTextRadioButton.IsChecked then
   begin
-    FTheme.HintSettings.CustomTextSettings.FontColor := Color;
+    FTheme.HintTheme.CustomTextSettings.FontColor := Color;
   end;
 
   ThemeApply;
@@ -492,23 +492,23 @@ procedure TMainForm.HintBackgroundRadioButtonClick(Sender: TObject);
 begin
   HintBackgroundRadioButton.IsChecked := true;
 
-  SetColor(FTheme.HintSettings.BackgroundColor);
+  SetColor(FTheme.HintTheme.BackgroundColor);
 end;
 
 procedure TMainForm.HintLabelTextRadioButtonClick(Sender: TObject);
 begin
   HintLabelTextRadioButton.IsChecked := true;
 
-  SetTextSettings(FTheme.HintSettings.CustomTextSettings);
+  SetTextSettings(FTheme.HintTheme.CustomTextSettings);
 
-  SetColor(FTheme.HintSettings.CustomTextSettings.FontColor);
+  SetColor(FTheme.HintTheme.CustomTextSettings.FontColor);
 end;
 
 procedure TMainForm.PopupMenuItemBackgroundRadioButtonClick(Sender: TObject);
 begin
   PopupMenuItemBackgroundRadioButton.IsChecked := true;
 
-  SetColor(FTheme.PopUpMenuSettings.MouseOverColor);
+  SetColor(FTheme.PopUpMenuSettings.NormalBackgroundColor);
 end;
 
 procedure TMainForm.PopupMenuItemMouseOverBackgroundRadioButtonClick(Sender: TObject);
@@ -632,10 +632,10 @@ begin
   else
   if HintLabelTextRadioButton.IsChecked then
   begin
-    FTheme.HintSettings.CustomTextSettings.Bold := BoldCheckBox.IsChecked;
-    FTheme.HintSettings.CustomTextSettings.Italic := ItalicCheckBox.IsChecked;
-    FTheme.HintSettings.CustomTextSettings.Underline := UnderlineCheckBox.IsChecked;
-    FTheme.HintSettings.CustomTextSettings.StrikeOut := StrikeOutCheckBox.IsChecked;
+    FTheme.HintTheme.CustomTextSettings.Bold := BoldCheckBox.IsChecked;
+    FTheme.HintTheme.CustomTextSettings.Italic := ItalicCheckBox.IsChecked;
+    FTheme.HintTheme.CustomTextSettings.Underline := UnderlineCheckBox.IsChecked;
+    FTheme.HintTheme.CustomTextSettings.StrikeOut := StrikeOutCheckBox.IsChecked;
   end
   else
   if PopupMenuItemTextColorRadioButton.IsChecked then
@@ -692,7 +692,7 @@ begin
   else
   if HintLabelTextRadioButton.IsChecked then
   begin
-    FTheme.HintSettings.CustomTextSettings.FontFamily := FontFamily;
+    FTheme.HintTheme.CustomTextSettings.FontFamily := FontFamily;
   end
   else
   if PopupMenuItemTextColorRadioButton.IsChecked then
@@ -728,7 +728,7 @@ begin
   else
   if HintLabelTextRadioButton.IsChecked then
   begin
-    FTheme.HintSettings.CustomTextSettings.FontSize := FontSize;
+    FTheme.HintTheme.CustomTextSettings.FontSize := FontSize;
   end
   else
   if PopupMenuItemTextColorRadioButton.IsChecked then
