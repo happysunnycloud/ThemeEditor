@@ -86,6 +86,8 @@ type
     Panel2: TPanel;
     Rectangle1: TRectangle;
     CommontTextSettingsLabel: TLabel;
+    HintBorderFrameRectangle: TRectangle;
+    HintBorderFrameRadioButton: TRadioButton;
     procedure FormCreate(Sender: TObject);
     procedure ColorQuadChange(Sender: TObject);
     procedure BorderFrameRadioButtonClick(Sender: TObject);
@@ -122,6 +124,7 @@ type
     procedure UnderlineCheckBoxChange(Sender: TObject);
     procedure StrikeOutCheckBoxChange(Sender: TObject);
     procedure CommonTextSettingsRadioButtonClick(Sender: TObject);
+    procedure HintBorderFrameRadioButtonClick(Sender: TObject);
   private
     FTheme: TTheme;
 
@@ -174,17 +177,18 @@ begin
   ItemFocusedBackgroundRectangle.Stroke.Color := FTheme.ItemSettings.FocusFrameColor;
   ItemNormalBackgroundRectangle.Stroke.Color := ItemFocusedBackgroundRectangle.Stroke.Color;
 
-  PopupMenuBackgroundRectangle.Fill.Color := FTheme.PopUpMenuSettings.BackgroundColor;
-  PopupMenuItem0Rectangle.Fill.Color := FTheme.PopUpMenuSettings.NormalBackgroundColor;
-  PopupMenuItem1Rectangle.Fill.Color := FTheme.PopUpMenuSettings.NormalBackgroundColor;
-  PopupMenuItem2Rectangle.Fill.Color := FTheme.PopUpMenuSettings.NormalBackgroundColor;
-  PopupMenuItem3Rectangle.Fill.Color := FTheme.PopUpMenuSettings.MouseOverColor;
+  PopupMenuBackgroundRectangle.Fill.Color := FTheme.PopUpMenuTheme.BackgroundColor;
+  PopupMenuItem0Rectangle.Fill.Color := FTheme.PopUpMenuTheme.NormalBackgroundColor;
+  PopupMenuItem1Rectangle.Fill.Color := FTheme.PopUpMenuTheme.NormalBackgroundColor;
+  PopupMenuItem2Rectangle.Fill.Color := FTheme.PopUpMenuTheme.NormalBackgroundColor;
+  PopupMenuItem3Rectangle.Fill.Color := FTheme.PopUpMenuTheme.MouseOverColor;
 
-  FTheme.PopUpMenuSettings.CustomTextSettings.ApplyTo(PopupMenuItem0Label);
-  FTheme.PopUpMenuSettings.CustomTextSettings.ApplyTo(PopupMenuItem1Label);
-  FTheme.PopUpMenuSettings.CustomTextSettings.ApplyTo(PopupMenuItem2Label);
-  FTheme.PopUpMenuSettings.CustomTextSettings.ApplyTo(PopupMenuItem3Label);
+  FTheme.PopUpMenuTheme.CustomTextSettings.ApplyTo(PopupMenuItem0Label);
+  FTheme.PopUpMenuTheme.CustomTextSettings.ApplyTo(PopupMenuItem1Label);
+  FTheme.PopUpMenuTheme.CustomTextSettings.ApplyTo(PopupMenuItem2Label);
+  FTheme.PopUpMenuTheme.CustomTextSettings.ApplyTo(PopupMenuItem3Label);
 
+  HintBorderFrameRectangle.Stroke.Color := FTheme.HintTheme.BorderFrameColor;
   HintBackgroundRectangle.Fill.Color := FTheme.HintTheme.BackgroundColor;
   FTheme.HintTheme.CustomTextSettings.ApplyTo(HintLabel);
 end;
@@ -351,22 +355,22 @@ begin
   else
   if PopupMenuBackgroundRadioButton.IsChecked then
   begin
-    FTheme.PopUpMenuSettings.BackgroundColor := Color;
+    FTheme.PopUpMenuTheme.BackgroundColor := Color;
   end
   else
   if PopupMenuItemBackgroundRadioButton.IsChecked then
   begin
-    FTheme.PopUpMenuSettings.NormalBackgroundColor := Color;
+    FTheme.PopUpMenuTheme.NormalBackgroundColor := Color;
   end
   else
   if PopupMenuItemMouseOverBackgroundRadioButton.IsChecked then
   begin
-    FTheme.PopUpMenuSettings.MouseOverColor := Color;
+    FTheme.PopUpMenuTheme.MouseOverColor := Color;
   end
   else
   if PopupMenuItemTextColorRadioButton.IsChecked then
   begin
-    FTheme.PopUpMenuSettings.CustomTextSettings.FontColor := Color;
+    FTheme.PopUpMenuTheme.CustomTextSettings.FontColor := Color;
   end
   else
   if HintBackgroundRadioButton.IsChecked then
@@ -377,6 +381,11 @@ begin
   if HintLabelTextRadioButton.IsChecked then
   begin
     FTheme.HintTheme.CustomTextSettings.FontColor := Color;
+  end
+  else
+  if HintBorderFrameRadioButton.IsChecked then
+  begin
+    FTheme.HintTheme.BorderFrameColor := Color;
   end;
 
   ThemeApply;
@@ -508,23 +517,23 @@ procedure TMainForm.PopupMenuItemBackgroundRadioButtonClick(Sender: TObject);
 begin
   PopupMenuItemBackgroundRadioButton.IsChecked := true;
 
-  SetColor(FTheme.PopUpMenuSettings.NormalBackgroundColor);
+  SetColor(FTheme.PopUpMenuTheme.NormalBackgroundColor);
 end;
 
 procedure TMainForm.PopupMenuItemMouseOverBackgroundRadioButtonClick(Sender: TObject);
 begin
   PopupMenuItemMouseOverBackgroundRadioButton.IsChecked := true;
 
-  SetColor(FTheme.PopUpMenuSettings.MouseOverColor);
+  SetColor(FTheme.PopUpMenuTheme.MouseOverColor);
 end;
 
 procedure TMainForm.PopupMenuItemTextColorRadioButtonClick(Sender: TObject);
 begin
   PopupMenuItemTextColorRadioButton.IsChecked := true;
 
-  SetTextSettings(FTheme.PopUpMenuSettings.CustomTextSettings);
+  SetTextSettings(FTheme.PopUpMenuTheme.CustomTextSettings);
 
-  SetColor(FTheme.PopUpMenuSettings.CustomTextSettings.FontColor);
+  SetColor(FTheme.PopUpMenuTheme.CustomTextSettings.FontColor);
 end;
 
 procedure TMainForm.ApplyColorButtonClick(Sender: TObject);
@@ -569,39 +578,39 @@ end;
 
 procedure TMainForm.PopupMenuItem0RectangleMouseEnter(Sender: TObject);
 begin
-  PopupMenuItem0Rectangle.Fill.Color := FTheme.PopUpMenuSettings.MouseOverColor;
+  PopupMenuItem0Rectangle.Fill.Color := FTheme.PopUpMenuTheme.MouseOverColor;
 end;
 
 procedure TMainForm.PopupMenuItem0RectangleMouseLeave(Sender: TObject);
 begin
-  PopupMenuItem0Rectangle.Fill.Color := FTheme.PopUpMenuSettings.NormalBackgroundColor;
+  PopupMenuItem0Rectangle.Fill.Color := FTheme.PopUpMenuTheme.NormalBackgroundColor;
 end;
 
 procedure TMainForm.PopupMenuItem1RectangleMouseEnter(Sender: TObject);
 begin
-  PopupMenuItem1Rectangle.Fill.Color := FTheme.PopUpMenuSettings.MouseOverColor;
+  PopupMenuItem1Rectangle.Fill.Color := FTheme.PopUpMenuTheme.MouseOverColor;
 end;
 
 procedure TMainForm.PopupMenuItem1RectangleMouseLeave(Sender: TObject);
 begin
-  PopupMenuItem1Rectangle.Fill.Color := FTheme.PopUpMenuSettings.NormalBackgroundColor;
+  PopupMenuItem1Rectangle.Fill.Color := FTheme.PopUpMenuTheme.NormalBackgroundColor;
 end;
 
 procedure TMainForm.PopupMenuItem2RectangleMouseEnter(Sender: TObject);
 begin
-  PopupMenuItem2Rectangle.Fill.Color := FTheme.PopUpMenuSettings.MouseOverColor;
+  PopupMenuItem2Rectangle.Fill.Color := FTheme.PopUpMenuTheme.MouseOverColor;
 end;
 
 procedure TMainForm.PopupMenuItem2RectangleMouseLeave(Sender: TObject);
 begin
-  PopupMenuItem2Rectangle.Fill.Color := FTheme.PopUpMenuSettings.NormalBackgroundColor;
+  PopupMenuItem2Rectangle.Fill.Color := FTheme.PopUpMenuTheme.NormalBackgroundColor;
 end;
 
 procedure TMainForm.PopupMenuBackgroundRadioButtonClick(Sender: TObject);
 begin
   PopupMenuBackgroundRadioButton.IsChecked := true;
 
-  SetColor(FTheme.PopUpMenuSettings.BackgroundColor);
+  SetColor(FTheme.PopUpMenuTheme.BackgroundColor);
 end;
 
 procedure TMainForm.ProcessTextStyleCheckBoxes;
@@ -640,13 +649,20 @@ begin
   else
   if PopupMenuItemTextColorRadioButton.IsChecked then
   begin
-    FTheme.PopUpMenuSettings.CustomTextSettings.Bold := BoldCheckBox.IsChecked;
-    FTheme.PopUpMenuSettings.CustomTextSettings.Italic := ItalicCheckBox.IsChecked;
-    FTheme.PopUpMenuSettings.CustomTextSettings.Underline := UnderlineCheckBox.IsChecked;
-    FTheme.PopUpMenuSettings.CustomTextSettings.StrikeOut := StrikeOutCheckBox.IsChecked;
+    FTheme.PopUpMenuTheme.CustomTextSettings.Bold := BoldCheckBox.IsChecked;
+    FTheme.PopUpMenuTheme.CustomTextSettings.Italic := ItalicCheckBox.IsChecked;
+    FTheme.PopUpMenuTheme.CustomTextSettings.Underline := UnderlineCheckBox.IsChecked;
+    FTheme.PopUpMenuTheme.CustomTextSettings.StrikeOut := StrikeOutCheckBox.IsChecked;
   end;
 
   ThemeApply;
+end;
+
+procedure TMainForm.HintBorderFrameRadioButtonClick(Sender: TObject);
+begin
+  HintBorderFrameRadioButton.IsChecked := true;
+
+  SetColor(FTheme.HintTheme.BorderFrameColor);
 end;
 
 procedure TMainForm.ItalicCheckBoxChange(Sender: TObject);
@@ -697,7 +713,7 @@ begin
   else
   if PopupMenuItemTextColorRadioButton.IsChecked then
   begin
-    FTheme.PopUpMenuSettings.CustomTextSettings.FontFamily := FontFamily;
+    FTheme.PopUpMenuTheme.CustomTextSettings.FontFamily := FontFamily;
   end;
 
   ThemeApply;
@@ -733,7 +749,7 @@ begin
   else
   if PopupMenuItemTextColorRadioButton.IsChecked then
   begin
-    FTheme.PopUpMenuSettings.CustomTextSettings.FontSize := FontSize;
+    FTheme.PopUpMenuTheme.CustomTextSettings.FontSize := FontSize;
   end;
 
   ThemeApply;

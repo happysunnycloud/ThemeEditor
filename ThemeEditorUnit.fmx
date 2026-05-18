@@ -692,7 +692,7 @@ object MainForm: TMainForm
           Margins.Left = 10.000000000000000000
           Margins.Bottom = 10.000000000000000000
           Position.X = 10.000000000000000000
-          Position.Y = 29.000000000000000000
+          Position.Y = 58.000000000000000000
           Size.Width = 187.000000000000000000
           Size.Height = 19.000000000000000000
           Size.PlatformDefault = False
@@ -707,6 +707,7 @@ object MainForm: TMainForm
           Margins.Left = 10.000000000000000000
           Margins.Bottom = 10.000000000000000000
           Position.X = 10.000000000000000000
+          Position.Y = 29.000000000000000000
           Size.Width = 187.000000000000000000
           Size.Height = 19.000000000000000000
           Size.PlatformDefault = False
@@ -714,6 +715,20 @@ object MainForm: TMainForm
           Text = 'Background'
           TextSettings.FontColor = claWhite
           OnClick = HintBackgroundRadioButtonClick
+        end
+        object HintBorderFrameRadioButton: TRadioButton
+          Align = Top
+          StyledSettings = [Family, Size, Style]
+          Margins.Left = 10.000000000000000000
+          Margins.Bottom = 10.000000000000000000
+          Position.X = 10.000000000000000000
+          Size.Width = 187.000000000000000000
+          Size.Height = 19.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 3
+          Text = 'Border frame'
+          TextSettings.FontColor = claWhite
+          OnClick = HintBorderFrameRadioButtonClick
         end
       end
       object Layout3: TLayout
@@ -735,25 +750,40 @@ object MainForm: TMainForm
           Size.Height = 35.000000000000000000
           Size.PlatformDefault = False
           TabOrder = 1
-          object HintBackgroundRectangle: TRectangle
+          object HintBorderFrameRectangle: TRectangle
             Align = Contents
-            HitTest = False
+            Fill.Color = claBlueviolet
             Size.Width = 204.000000000000000000
             Size.Height = 35.000000000000000000
             Size.PlatformDefault = False
-          end
-          object HintLabel: TLabel
-            Align = Client
-            Margins.Left = 10.000000000000000000
-            Margins.Top = 10.000000000000000000
-            Margins.Right = 10.000000000000000000
-            Margins.Bottom = 10.000000000000000000
-            Size.Width = 184.000000000000000000
-            Size.Height = 15.000000000000000000
-            Size.PlatformDefault = False
-            TextSettings.HorzAlign = Center
-            Text = 'Label'
-            TabOrder = 0
+            Stroke.Color = claOrange
+            Stroke.Thickness = 2.000000000000000000
+            object HintBackgroundRectangle: TRectangle
+              Align = Contents
+              HitTest = False
+              Margins.Left = 1.000000000000000000
+              Margins.Top = 1.000000000000000000
+              Margins.Right = 1.000000000000000000
+              Margins.Bottom = 1.000000000000000000
+              Size.Width = 202.000000000000000000
+              Size.Height = 33.000000000000000000
+              Size.PlatformDefault = False
+              Stroke.Kind = None
+              Stroke.Thickness = 0.000000000000000000
+            end
+            object HintLabel: TLabel
+              Align = Client
+              Margins.Left = 10.000000000000000000
+              Margins.Top = 10.000000000000000000
+              Margins.Right = 10.000000000000000000
+              Margins.Bottom = 10.000000000000000000
+              Size.Width = 184.000000000000000000
+              Size.Height = 15.000000000000000000
+              Size.PlatformDefault = False
+              TextSettings.HorzAlign = Center
+              Text = 'Label'
+              TabOrder = 0
+            end
           end
         end
       end
