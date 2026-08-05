@@ -53,7 +53,7 @@ type
     PopupMenuItemTextColorRadioButton: TRadioButton;
     VisualListGroupBox: TGroupBox;
     VisualListLeftLayout: TLayout;
-    Layout2: TLayout;
+    ItemsLayout: TLayout;
     PopupMenuItemBackgroundRadioButton: TRadioButton;
     PopupmenuLeftLayout: TLayout;
     Layout4: TLayout;
@@ -88,6 +88,12 @@ type
     CommontTextSettingsLabel: TLabel;
     HintBorderFrameRectangle: TRectangle;
     HintBorderFrameRadioButton: TRadioButton;
+    ItemsBackgroundPanel: TPanel;
+    ItemsBackgroundRectangle: TRectangle;
+    ItemsBackgroundRadioButton: TRadioButton;
+    BorderFrameKindComboBox: TComboBox;
+    Button1: TButton;
+    CheckBox1: TCheckBox;
     procedure FormCreate(Sender: TObject);
     procedure ColorQuadChange(Sender: TObject);
     procedure BorderFrameRadioButtonClick(Sender: TObject);
@@ -125,6 +131,9 @@ type
     procedure StrikeOutCheckBoxChange(Sender: TObject);
     procedure CommonTextSettingsRadioButtonClick(Sender: TObject);
     procedure HintBorderFrameRadioButtonClick(Sender: TObject);
+    procedure ItemsBackgroundRadioButtonClick(Sender: TObject);
+    procedure BorderFrameKindComboBoxChange(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
   private
     FTheme: TTheme;
 
@@ -137,6 +146,8 @@ type
     procedure Load(const AFileName: String);
 
     procedure ProcessTextStyleCheckBoxes;
+
+    procedure DebugSetCheck(const ACustomTextSettings: TCustomTextSettings);
   public
     { Public declarations }
   end;
@@ -153,12 +164,13 @@ uses
   , ParamsExtUnit
   , FMX.ImageToolsUnit
   , FMX.ControlToolsUnit
-//  , BorderFrameUnit
+  , BorderFrameUnit
   ;
 
 procedure TMainForm.ThemeApply;
 begin
   Self.Fill.Color := FTheme.FormSettings.BackgroundColor;
+  BorderFrame.Kind := FTheme.FormSettings.BorderFrameKind;
   BorderFrame.Color := FTheme.FormSettings.BorderFrameColor;
   BorderFrame.CaptionColor := FTheme.FormSettings.CustomTextSettings.FontColor;
 
@@ -172,6 +184,7 @@ begin
   FTheme.ItemSettings.CustomTextSettings.ApplyTo(ItemNormalLabel);
   FTheme.ItemSettings.CustomTextSettings.ApplyTo(ItemFocusedLabel);
 
+  ItemsBackgroundRectangle.Fill.Color := FTheme.ItemSettings.BackgroundColor;
   ItemNormalBackgroundRectangle.Fill.Color := FTheme.ItemSettings.NormalBackgroundColor;
   ItemFocusedBackgroundRectangle.Fill.Color := FTheme.ItemSettings.FocusedBackgroundColor;
   ItemFocusedBackgroundRectangle.Stroke.Color := FTheme.ItemSettings.FocusFrameColor;
@@ -289,6 +302,8 @@ begin
 end;
 
 procedure TMainForm.SetTextSettings(const ACustomTextSettings: TCustomTextSettings);
+var
+  Bool: Boolean;
 begin
   FontSizeComboBox.ItemIndex :=
     FontSizeComboBox.Items.IndexOf(ACustomTextSettings.FontSize.ToString);
@@ -331,6 +346,11 @@ begin
   if CommonTextSettingsRadioButton.IsChecked then
   begin
     FTheme.CommonSettings.CustomTextSettings.FontColor := Color;
+  end
+  else
+  if ItemsBackgroundRadioButton.IsChecked then
+  begin
+    FTheme.ItemSettings.BackgroundColor := Color;
   end
   else
   if ItemLabelTextRadioButton.IsChecked then
@@ -418,6 +438,7 @@ end;
 procedure TMainForm.FormCreate(Sender: TObject);
 var
   i: Integer;
+  BorderFrameKind: TBorderFrameKind;
 begin
   ReportMemoryLeaksOnShutdown := true;
 
@@ -430,7 +451,7 @@ begin
   BorderFrame.CaptionColor := FTheme.FormSettings.CustomTextSettings.FontColor;
   BorderFrame.CaptionText.TextSettings.Font.Size := FTheme.FormSettings.CustomTextSettings.FontSize;
 
-  BorderFrameRadioButton.IsChecked := true;
+  FormCaptionRadioButton.IsChecked := true;
 
   for i := 8 to 28 do
   begin
@@ -438,8 +459,6 @@ begin
   end;
 
   FontSizeComboBox.SilentIndexChange(FontSizeComboBox.Items.IndexOf('12'));
-
-  // ------------ //
 
   FontFamilyComboBox.Items.Add(DEFAUL_FONT_FAMILY);
   FontFamilyComboBox.Items.Add('Segoe UI');
@@ -451,19 +470,12 @@ begin
   FontFamilyComboBox.SilentIndexChange(
     FontFamilyComboBox.Items.IndexOf('Segoe UI'));
 
-//  FTheme.HintSettings.CustomTextSettings.FontFamily := 'Segoe UI';
+  for BorderFrameKind := Low(bfkNone) to High(bfkFullScreen) do
+    BorderFrameKindComboBox.Items.AddObject(
+      BorderFrameKind.ToString, TObject(BorderFrameKind));
 
-//  TThread.CreateAnonymousThread(
-//    procedure
-//    begin
-//      Sleep(3000);
-//
-//      TThread.ForceQueue(nil,
-//        procedure
-//        begin
-//          FTheme.FormSettings.Apply;
-//        end);
-//    end).Start;
+  BorderFrameKindComboBox.SilentIndexChange(
+    BorderFrameKindComboBox.Items.IndexOf(bfkNormal.ToString));
 
   ThemeApply;
 end;
@@ -553,11 +565,46 @@ begin
   ProcessTextStyleCheckBoxes;
 end;
 
+procedure TMainForm.BorderFrameKindComboBoxChange(Sender: TObject);
+var
+  BorderFrameKind: TBorderFrameKind;
+begin
+  BorderFrameKind := TBorderFrameKind(
+    BorderFrameKindComboBox.Items.Objects[BorderFrameKindComboBox.ItemIndex]);
+  FTheme.FormSettings.BorderFrameKind := BorderFrameKind;
+
+  ThemeApply;
+end;
+
 procedure TMainForm.BorderFrameRadioButtonClick(Sender: TObject);
 begin
   BorderFrameRadioButton.IsChecked := true;
 
   SetColor(FTheme.FormSettings.BorderFrameColor);
+end;
+
+procedure TMainForm.DebugSetCheck(const ACustomTextSettings: TCustomTextSettings);
+var
+  b: Boolean;
+begin
+  b := ACustomTextSettings.Bold;
+  CheckBox1.IsChecked := b;
+end;
+
+procedure TMainForm.Button1Click(Sender: TObject);
+var
+  b: Boolean;
+  te: TNotifyEvent;
+begin
+//  b := BoldCheckBox.Enabled;
+//  te := BoldCheckBox.OnChange;
+//  te := BoldCheckBox.OnClick;
+//  b := Layout5.Enabled;
+
+  FTheme.FormSettings.CustomTextSettings.Bold := true;
+  b := FTheme.FormSettings.CustomTextSettings.Bold;
+  CheckBox1.IsChecked := b;
+//  CheckBox1.SilentIsCheckChange(Bool);
 end;
 
 procedure TMainForm.ItemLabelTextRadioButtonClick(Sender: TObject);
@@ -574,6 +621,11 @@ begin
   ItemNormalBackgroundRadioButton.IsChecked := true;
 
   SetColor(FTheme.ItemSettings.NormalBackgroundColor);
+end;
+
+procedure TMainForm.ItemsBackgroundRadioButtonClick(Sender: TObject);
+begin
+  ItemsBackgroundRadioButton.IsChecked := true;
 end;
 
 procedure TMainForm.PopupMenuItem0RectangleMouseEnter(Sender: TObject);
@@ -772,16 +824,26 @@ begin
 
   ThemeApply;
 
-  Index :=
-    FontSizeComboBox.Items.
-      IndexOf(FTheme.ItemSettings.CustomTextSettings.FontSize.ToString);
-  FontSizeComboBox.ItemIndex := Index;
+  SetTextSettings(FTheme.FormSettings.CustomTextSettings);
 
-  FontFamily := FTheme.ItemSettings.CustomTextSettings.FontFamily;
+  BorderFrameKindComboBox.SilentIndexChange(
+    BorderFrameKindComboBox.Items.IndexOf(
+      FTheme.FormSettings.BorderFrameKind.ToString));
+
+  FontSizeComboBox.SilentIndexChange(
+    FontSizeComboBox.Items.IndexOf(
+      FTheme.FormSettings.CustomTextSettings.FontSize.ToString));
+
+//  Index := FontSizeComboBox.Items.IndexOf(
+//    FTheme.FormSettings.CustomTextSettings.FontSize.ToString);
+//  FontSizeComboBox.ItemIndex := Index;
+
+  FontFamily := FTheme.FormSettings.CustomTextSettings.FontFamily;
   if FontFamily.Length = 0 then
     FontFamily := DEFAUL_FONT_FAMILY;
   Index := FontFamilyComboBox.Items.IndexOf(FontFamily);
-  FontFamilyComboBox.ItemIndex := Index;
+  FontFamilyComboBox.SilentIndexChange(Index);
+//  FontFamilyComboBox.ItemIndex := Index;
 end;
 
 end.
