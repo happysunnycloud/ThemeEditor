@@ -511,19 +511,12 @@ object MainForm: TMainForm
             TextSettings.FontColor = claWhite
             OnChange = StrikeOutCheckBoxChange
           end
-          object CheckBox1: TCheckBox
-            Position.X = 104.000000000000000000
-            Position.Y = 78.000000000000000000
-            TabOrder = 13
-            Text = 'CheckBox1'
-          end
         end
         object Button1: TButton
           Position.X = 228.000000000000000000
           Position.Y = 168.000000000000000000
           TabOrder = 8
           Text = 'Button1'
-          OnClick = Button1Click
         end
       end
     end

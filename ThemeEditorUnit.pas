@@ -93,7 +93,6 @@ type
     ItemsBackgroundRadioButton: TRadioButton;
     BorderFrameKindComboBox: TComboBox;
     Button1: TButton;
-    CheckBox1: TCheckBox;
     procedure FormCreate(Sender: TObject);
     procedure ColorQuadChange(Sender: TObject);
     procedure BorderFrameRadioButtonClick(Sender: TObject);
@@ -133,7 +132,6 @@ type
     procedure HintBorderFrameRadioButtonClick(Sender: TObject);
     procedure ItemsBackgroundRadioButtonClick(Sender: TObject);
     procedure BorderFrameKindComboBoxChange(Sender: TObject);
-    procedure Button1Click(Sender: TObject);
   private
     FTheme: TTheme;
 
@@ -146,8 +144,6 @@ type
     procedure Load(const AFileName: String);
 
     procedure ProcessTextStyleCheckBoxes;
-
-    procedure DebugSetCheck(const ACustomTextSettings: TCustomTextSettings);
   public
     { Public declarations }
   end;
@@ -302,8 +298,6 @@ begin
 end;
 
 procedure TMainForm.SetTextSettings(const ACustomTextSettings: TCustomTextSettings);
-var
-  Bool: Boolean;
 begin
   FontSizeComboBox.ItemIndex :=
     FontSizeComboBox.Items.IndexOf(ACustomTextSettings.FontSize.ToString);
@@ -581,30 +575,6 @@ begin
   BorderFrameRadioButton.IsChecked := true;
 
   SetColor(FTheme.FormSettings.BorderFrameColor);
-end;
-
-procedure TMainForm.DebugSetCheck(const ACustomTextSettings: TCustomTextSettings);
-var
-  b: Boolean;
-begin
-  b := ACustomTextSettings.Bold;
-  CheckBox1.IsChecked := b;
-end;
-
-procedure TMainForm.Button1Click(Sender: TObject);
-var
-  b: Boolean;
-  te: TNotifyEvent;
-begin
-//  b := BoldCheckBox.Enabled;
-//  te := BoldCheckBox.OnChange;
-//  te := BoldCheckBox.OnClick;
-//  b := Layout5.Enabled;
-
-  FTheme.FormSettings.CustomTextSettings.Bold := true;
-  b := FTheme.FormSettings.CustomTextSettings.Bold;
-  CheckBox1.IsChecked := b;
-//  CheckBox1.SilentIsCheckChange(Bool);
 end;
 
 procedure TMainForm.ItemLabelTextRadioButtonClick(Sender: TObject);
