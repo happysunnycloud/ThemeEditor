@@ -17,7 +17,8 @@ uses
   ParamsExtUnit in '..\DevelopmentsCollection\ParamsExt\ParamsExtUnit.pas',
   FMX.ImageToolsUnit in '..\DevelopmentsCollection\FMX.ImageToolsUnit.pas',
   BinFileTypes in '..\DevelopmentsCollection\Types\BinFileTypes.pas',
-  StreamHandler in '..\DevelopmentsCollection\Stream\StreamHandler.pas';
+  StreamHandler in '..\DevelopmentsCollection\Stream\StreamHandler.pas',
+  FMX.ButtonDecorator in '..\DevelopmentsCollection\FMX.Theme\FMX.ButtonDecorator.pas';
 
 {$R *.res}
 

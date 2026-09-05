@@ -93,6 +93,14 @@ type
     ItemsBackgroundRadioButton: TRadioButton;
     BorderFrameKindComboBox: TComboBox;
     Button1: TButton;
+    Button2: TButton;
+    Rectangle2: TRectangle;
+    Label1: TLabel;
+    ButtonGroupBox: TGroupBox;
+    ButtonNormalBackgroundRadioButton: TRadioButton;
+    ButtonMouseOverBackgroundRadioButton: TRadioButton;
+    ButtonFocusFrameRadioButton: TRadioButton;
+    ButtonLabelTextRadioButton: TRadioButton;
     procedure FormCreate(Sender: TObject);
     procedure ColorQuadChange(Sender: TObject);
     procedure BorderFrameRadioButtonClick(Sender: TObject);
@@ -132,6 +140,7 @@ type
     procedure HintBorderFrameRadioButtonClick(Sender: TObject);
     procedure ItemsBackgroundRadioButtonClick(Sender: TObject);
     procedure BorderFrameKindComboBoxChange(Sender: TObject);
+    procedure ButtonNormalBackgroundRadioButtonClick(Sender: TObject);
   private
     FTheme: TTheme;
 
@@ -161,9 +170,12 @@ uses
   , FMX.ImageToolsUnit
   , FMX.ControlToolsUnit
   , BorderFrameUnit
+  , FMX.ButtonDecorator
   ;
 
 procedure TMainForm.ThemeApply;
+var
+  ButtonDecorator: TButtonDecorator;
 begin
   Self.Fill.Color := FTheme.FormSettings.BackgroundColor;
   BorderFrame.Kind := FTheme.FormSettings.BorderFrameKind;
@@ -200,6 +212,9 @@ begin
   HintBorderFrameRectangle.Stroke.Color := FTheme.HintTheme.BorderFrameColor;
   HintBackgroundRectangle.Fill.Color := FTheme.HintTheme.BackgroundColor;
   FTheme.HintTheme.CustomTextSettings.ApplyTo(HintLabel);
+
+  ButtonDecorator := TButtonDecorator.GetDecorator(Button1);
+  ButtonDecorator.NormalBackgroundColor := FTheme.ButtonSettings.NormalBackgroundColor;
 end;
 
 procedure TMainForm.UnderlineCheckBoxChange(Sender: TObject);
@@ -400,6 +415,11 @@ begin
   if HintBorderFrameRadioButton.IsChecked then
   begin
     FTheme.HintTheme.BorderFrameColor := Color;
+  end
+  else
+  if ButtonNormalBackgroundRadioButton .IsChecked then
+  begin
+    FTheme.ButtonSettings.NormalBackgroundColor := Color;
   end;
 
   ThemeApply;
@@ -470,6 +490,8 @@ begin
 
   BorderFrameKindComboBox.SilentIndexChange(
     BorderFrameKindComboBox.Items.IndexOf(bfkNormal.ToString));
+
+  TButtonDecorator.Decorate(Button1);
 
   ThemeApply;
 end;
@@ -678,6 +700,13 @@ begin
   end;
 
   ThemeApply;
+end;
+
+procedure TMainForm.ButtonNormalBackgroundRadioButtonClick(Sender: TObject);
+begin
+  ButtonNormalBackgroundRadioButton.IsChecked := true;
+
+  SetColor(FTheme.ButtonSettings.NormalBackgroundColor);
 end;
 
 procedure TMainForm.HintBorderFrameRadioButtonClick(Sender: TObject);
