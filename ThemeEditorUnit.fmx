@@ -2,8 +2,8 @@ object MainForm: TMainForm
   Left = 0
   Top = 0
   Caption = 'Theme editor'
-  ClientHeight = 715
-  ClientWidth = 1277
+  ClientHeight = 876
+  ClientWidth = 1221
   Fill.Color = xFF007B5D
   Fill.Kind = Solid
   FormFactor.Width = 320
@@ -14,7 +14,7 @@ object MainForm: TMainForm
   OnShow = FormShow
   DesignerMasterStyle = 0
   object MenuBar1: TMenuBar
-    Size.Width = 1277.000000000000000000
+    Size.Width = 1221.000000000000000000
     Size.Height = 24.000000000000000000
     Size.PlatformDefault = False
     TabOrder = 0
@@ -29,8 +29,8 @@ object MainForm: TMainForm
   end
   object ContentLayout: TLayout
     Align = Client
-    Size.Width = 1277.000000000000000000
-    Size.Height = 691.000000000000000000
+    Size.Width = 1221.000000000000000000
+    Size.Height = 852.000000000000000000
     Size.PlatformDefault = False
     TabOrder = 1
     object FormGroupBox: TGroupBox
@@ -38,7 +38,7 @@ object MainForm: TMainForm
       Position.X = 10.000000000000000000
       Position.Y = 16.000000000000000000
       Size.Width = 315.000000000000000000
-      Size.Height = 140.000000000000000000
+      Size.Height = 257.000000000000000000
       Size.PlatformDefault = False
       Text = 'Form'
       TextSettings.FontColor = claWhite
@@ -99,11 +99,69 @@ object MainForm: TMainForm
         TabOrder = 38
         OnChange = BorderFrameKindComboBoxChange
       end
+      object CloseIconMouseOverBackgroundColorRadioButton: TRadioButton
+        Align = Top
+        StyledSettings = [Family, Size, Style]
+        Margins.Left = 10.000000000000000000
+        Margins.Bottom = 10.000000000000000000
+        Position.X = 10.000000000000000000
+        Position.Y = 146.000000000000000000
+        Size.Width = 305.000000000000000000
+        Size.Height = 19.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 39
+        Text = 'Close icon mouse over background color'
+        TextSettings.FontColor = claWhite
+        OnClick = CloseIconMouseOverBackgroundColorRadioButtonClick
+      end
+      object MinIconMouseOverBackgrounColorRadioButton: TRadioButton
+        Align = Top
+        StyledSettings = [Family, Size, Style]
+        Margins.Left = 10.000000000000000000
+        Margins.Bottom = 10.000000000000000000
+        Position.X = 10.000000000000000000
+        Position.Y = 175.000000000000000000
+        Size.Width = 305.000000000000000000
+        Size.Height = 19.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 40
+        Text = 'Min icon mouse over backgroun color'
+        TextSettings.FontColor = claWhite
+      end
+      object MaximizeIconMouseOverRadioButton: TRadioButton
+        Align = Top
+        StyledSettings = [Family, Size, Style]
+        Margins.Left = 10.000000000000000000
+        Margins.Bottom = 10.000000000000000000
+        Position.X = 10.000000000000000000
+        Position.Y = 204.000000000000000000
+        Size.Width = 305.000000000000000000
+        Size.Height = 19.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 41
+        Text = 'Max icon mouse over background color'
+        TextSettings.FontColor = claWhite
+      end
+      object ToolIconsColorRadioButton: TRadioButton
+        Align = Top
+        StyledSettings = [Family, Size, Style]
+        Margins.Left = 10.000000000000000000
+        Margins.Bottom = 10.000000000000000000
+        Position.X = 10.000000000000000000
+        Position.Y = 117.000000000000000000
+        Size.Width = 305.000000000000000000
+        Size.Height = 19.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 42
+        Text = 'Tool icons color'
+        TextSettings.FontColor = claWhite
+        OnClick = ToolIconsColorRadioButtonClick
+      end
     end
     object NavigateLayout: TLayout
       Align = Bottom
-      Position.Y = 641.000000000000000000
-      Size.Width = 1277.000000000000000000
+      Position.Y = 802.000000000000000000
+      Size.Width = 1221.000000000000000000
       Size.Height = 50.000000000000000000
       Size.PlatformDefault = False
       TabOrder = 1
@@ -121,13 +179,21 @@ object MainForm: TMainForm
         Text = 'Load'
         OnClick = LoadButtonClick
       end
+      object CloseButton: TButton
+        Anchors = [akRight, akBottom]
+        Position.X = 1124.000000000000000000
+        Position.Y = 14.000000000000000000
+        TabOrder = 2
+        Text = 'Close'
+        OnClick = CloseButtonClick
+      end
     end
     object PopupMenuGroupBox: TGroupBox
       StyledSettings = [Family, Size, Style, Other]
       Position.X = 567.000000000000000000
-      Position.Y = 166.000000000000000000
+      Position.Y = 280.000000000000000000
       Size.Width = 509.000000000000000000
-      Size.Height = 219.000000000000000000
+      Size.Height = 220.000000000000000000
       Size.PlatformDefault = False
       Text = 'Popup menu'
       TextSettings.FontColor = claWhite
@@ -137,7 +203,7 @@ object MainForm: TMainForm
         Margins.Top = 30.000000000000000000
         Position.Y = 30.000000000000000000
         Size.Width = 211.000000000000000000
-        Size.Height = 189.000000000000000000
+        Size.Height = 190.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 38
         object PopupMenuBackgroundRadioButton: TRadioButton
@@ -206,7 +272,7 @@ object MainForm: TMainForm
         Align = Client
         Margins.Top = 30.000000000000000000
         Size.Width = 298.000000000000000000
-        Size.Height = 189.000000000000000000
+        Size.Height = 190.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 40
         object PopupMenuItemsLayout: TLayout
@@ -331,15 +397,15 @@ object MainForm: TMainForm
     end
     object SettingsLayout: TLayout
       Align = Bottom
-      Position.Y = 440.000000000000000000
-      Size.Width = 1277.000000000000000000
-      Size.Height = 201.000000000000000000
+      Position.Y = 525.000000000000000000
+      Size.Width = 1221.000000000000000000
+      Size.Height = 277.000000000000000000
       Size.PlatformDefault = False
       TabOrder = 0
       object ColorSettingsLayout: TLayout
         Align = Left
         Size.Width = 553.000000000000000000
-        Size.Height = 201.000000000000000000
+        Size.Height = 277.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 0
         object ColorPicker: TColorPicker
@@ -351,7 +417,7 @@ object MainForm: TMainForm
           Position.X = 10.000000000000000000
           Position.Y = 10.000000000000000000
           Size.Width = 119.000000000000000000
-          Size.Height = 181.000000000000000000
+          Size.Height = 257.000000000000000000
           Size.PlatformDefault = False
           TabOrder = 0
         end
@@ -366,7 +432,7 @@ object MainForm: TMainForm
           Position.X = 139.000000000000000000
           Position.Y = 10.000000000000000000
           Size.Width = 202.000000000000000000
-          Size.Height = 181.000000000000000000
+          Size.Height = 257.000000000000000000
           Size.PlatformDefault = False
           TabOrder = 1
           OnChange = ColorQuadChange
@@ -410,14 +476,14 @@ object MainForm: TMainForm
       end
       object FontSettingsLayout: TLayout
         Align = Client
-        Size.Width = 724.000000000000000000
-        Size.Height = 201.000000000000000000
+        Size.Width = 668.000000000000000000
+        Size.Height = 277.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 1
         object Layout5: TLayout
           Align = Left
           Size.Width = 205.000000000000000000
-          Size.Height = 201.000000000000000000
+          Size.Height = 277.000000000000000000
           Size.PlatformDefault = False
           TabOrder = 7
           object FontSizeComboBox: TComboBox
@@ -517,82 +583,108 @@ object MainForm: TMainForm
           Position.X = 222.000000000000000000
           Position.Y = 18.000000000000000000
           Size.Width = 383.000000000000000000
-          Size.Height = 159.000000000000000000
+          Size.Height = 225.000000000000000000
           Size.PlatformDefault = False
           Text = 'Button'
           TextSettings.FontColor = claWhite
           TabOrder = 8
+          object ButtonLeftLayout: TLayout
+            Align = Left
+            Margins.Top = 30.000000000000000000
+            Position.Y = 30.000000000000000000
+            Size.Width = 217.000000000000000000
+            Size.Height = 195.000000000000000000
+            Size.PlatformDefault = False
+            TabOrder = 38
+            object ButtonNormalBackgroundRadioButton: TRadioButton
+              Align = Top
+              StyledSettings = [Family, Size, Style]
+              Margins.Left = 10.000000000000000000
+              Margins.Top = 10.000000000000000000
+              Margins.Bottom = 10.000000000000000000
+              Position.X = 10.000000000000000000
+              Position.Y = 10.000000000000000000
+              Size.Width = 207.000000000000000000
+              Size.Height = 19.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 39
+              Text = 'Normal background'
+              TextSettings.FontColor = claWhite
+              OnClick = ButtonNormalBackgroundRadioButtonClick
+            end
+            object ButtonFocusedBackgroundRadioButton: TRadioButton
+              Align = Top
+              StyledSettings = [Family, Size, Style]
+              Margins.Left = 10.000000000000000000
+              Margins.Bottom = 10.000000000000000000
+              Position.X = 10.000000000000000000
+              Position.Y = 39.000000000000000000
+              Size.Width = 207.000000000000000000
+              Size.Height = 19.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 40
+              Text = 'Focused background'
+              TextSettings.FontColor = claWhite
+              OnClick = ButtonFocusedBackgroundRadioButtonClick
+            end
+            object ButtonNormalFrameRadioButton: TRadioButton
+              Align = Top
+              StyledSettings = [Family, Size, Style]
+              Margins.Left = 10.000000000000000000
+              Margins.Bottom = 10.000000000000000000
+              Position.X = 10.000000000000000000
+              Position.Y = 68.000000000000000000
+              Size.Width = 207.000000000000000000
+              Size.Height = 19.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 43
+              Text = 'Normal frame'
+              TextSettings.FontColor = claWhite
+              OnClick = ButtonNormalFrameRadioButtonClick
+            end
+            object ButtonFocusedFrameRadioButton: TRadioButton
+              Align = Top
+              StyledSettings = [Family, Size, Style]
+              Margins.Left = 10.000000000000000000
+              Margins.Bottom = 10.000000000000000000
+              Position.X = 10.000000000000000000
+              Position.Y = 97.000000000000000000
+              Size.Width = 207.000000000000000000
+              Size.Height = 19.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 41
+              Text = 'Focused frame'
+              TextSettings.FontColor = claWhite
+              OnClick = ButtonFocusedFrameRadioButtonClick
+            end
+            object ButtonLabelTextRadioButton: TRadioButton
+              Align = Top
+              StyledSettings = [Family, Size, Style]
+              Margins.Left = 10.000000000000000000
+              Margins.Bottom = 10.000000000000000000
+              Position.X = 10.000000000000000000
+              Position.Y = 126.000000000000000000
+              Size.Width = 207.000000000000000000
+              Size.Height = 19.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 42
+              Text = 'Label text'
+              TextSettings.FontColor = claWhite
+              OnClick = ButtonLabelTextRadioButtonClick
+            end
+          end
           object Button1: TButton
-            Position.X = 253.000000000000000000
-            Position.Y = 34.000000000000000000
-            TabOrder = 8
+            Position.X = 250.000000000000000000
+            Position.Y = 38.000000000000000000
+            TabOrder = 39
             Text = 'Button1'
           end
           object Button2: TButton
-            Position.X = 253.000000000000000000
-            Position.Y = 66.000000000000000000
-            TabOrder = 38
-            Text = 'Button2'
-            object Rectangle2: TRectangle
-              Align = Contents
-              Locked = True
-              Size.Width = 80.000000000000000000
-              Size.Height = 22.000000000000000000
-              Size.PlatformDefault = False
-              Stroke.Kind = None
-              object Label1: TLabel
-                Align = Contents
-                Locked = True
-                Size.Width = 80.000000000000000000
-                Size.Height = 22.000000000000000000
-                Size.PlatformDefault = False
-                TextSettings.HorzAlign = Center
-                Text = 'Button2'
-                TabOrder = 0
-              end
-            end
-          end
-          object ButtonNormalBackgroundRadioButton: TRadioButton
-            StyledSettings = [Family, Size, Style]
-            Position.X = 28.000000000000000000
-            Position.Y = 32.000000000000000000
-            Size.Width = 195.000000000000000000
-            Size.Height = 19.000000000000000000
-            Size.PlatformDefault = False
-            TabOrder = 39
-            Text = 'Normal background'
-            TextSettings.FontColor = claWhite
-            OnClick = ButtonNormalBackgroundRadioButtonClick
-          end
-          object ButtonMouseOverBackgroundRadioButton: TRadioButton
-            StyledSettings = [Family, Size, Style]
-            Position.X = 30.000000000000000000
-            Position.Y = 60.000000000000000000
-            Size.Width = 161.000000000000000000
-            Size.Height = 19.000000000000000000
-            Size.PlatformDefault = False
+            HitTest = False
+            Position.X = 250.000000000000000000
+            Position.Y = 68.000000000000000000
             TabOrder = 40
-            Text = 'Mouse over background'
-            TextSettings.FontColor = claWhite
-          end
-          object ButtonFocusFrameRadioButton: TRadioButton
-            StyledSettings = [Family, Size, Style]
-            Position.X = 30.000000000000000000
-            Position.Y = 86.000000000000000000
-            TabOrder = 41
-            Text = 'Focus frame'
-            TextSettings.FontColor = claWhite
-          end
-          object ButtonLabelTextRadioButton: TRadioButton
-            StyledSettings = [Family, Size, Style]
-            Position.X = 32.000000000000000000
-            Position.Y = 118.000000000000000000
-            Size.Width = 165.000000000000000000
-            Size.Height = 19.000000000000000000
-            Size.PlatformDefault = False
-            TabOrder = 42
-            Text = 'Label text'
-            TextSettings.FontColor = claWhite
+            Text = 'Button2'
           end
         end
       end
@@ -600,7 +692,7 @@ object MainForm: TMainForm
     object VisualListGroupBox: TGroupBox
       StyledSettings = [Family, Size, Style, Other]
       Position.X = 10.000000000000000000
-      Position.Y = 166.000000000000000000
+      Position.Y = 280.000000000000000000
       Size.Width = 543.000000000000000000
       Size.Height = 220.000000000000000000
       Size.PlatformDefault = False

@@ -92,15 +92,20 @@ type
     ItemsBackgroundRectangle: TRectangle;
     ItemsBackgroundRadioButton: TRadioButton;
     BorderFrameKindComboBox: TComboBox;
-    Button1: TButton;
-    Button2: TButton;
-    Rectangle2: TRectangle;
-    Label1: TLabel;
     ButtonGroupBox: TGroupBox;
     ButtonNormalBackgroundRadioButton: TRadioButton;
-    ButtonMouseOverBackgroundRadioButton: TRadioButton;
-    ButtonFocusFrameRadioButton: TRadioButton;
+    ButtonFocusedFrameRadioButton: TRadioButton;
     ButtonLabelTextRadioButton: TRadioButton;
+    ButtonFocusedBackgroundRadioButton: TRadioButton;
+    ButtonLeftLayout: TLayout;
+    ButtonNormalFrameRadioButton: TRadioButton;
+    Button1: TButton;
+    Button2: TButton;
+    CloseButton: TButton;
+    CloseIconMouseOverBackgroundColorRadioButton: TRadioButton;
+    MinIconMouseOverBackgrounColorRadioButton: TRadioButton;
+    MaximizeIconMouseOverRadioButton: TRadioButton;
+    ToolIconsColorRadioButton: TRadioButton;
     procedure FormCreate(Sender: TObject);
     procedure ColorQuadChange(Sender: TObject);
     procedure BorderFrameRadioButtonClick(Sender: TObject);
@@ -141,6 +146,14 @@ type
     procedure ItemsBackgroundRadioButtonClick(Sender: TObject);
     procedure BorderFrameKindComboBoxChange(Sender: TObject);
     procedure ButtonNormalBackgroundRadioButtonClick(Sender: TObject);
+    procedure ButtonFocusedBackgroundRadioButtonClick(Sender: TObject);
+    procedure ButtonNormalFrameRadioButtonClick(Sender: TObject);
+    procedure ButtonFocusedFrameRadioButtonClick(Sender: TObject);
+    procedure ButtonLabelTextRadioButtonClick(Sender: TObject);
+    procedure CloseButtonClick(Sender: TObject);
+    procedure CloseIconMouseOverBackgroundColorRadioButtonClick(
+      Sender: TObject);
+    procedure ToolIconsColorRadioButtonClick(Sender: TObject);
   private
     FTheme: TTheme;
 
@@ -213,8 +226,33 @@ begin
   HintBackgroundRectangle.Fill.Color := FTheme.HintTheme.BackgroundColor;
   FTheme.HintTheme.CustomTextSettings.ApplyTo(HintLabel);
 
+  // Полное отображение темы
   ButtonDecorator := TButtonDecorator.GetDecorator(Button1);
   ButtonDecorator.NormalBackgroundColor := FTheme.ButtonSettings.NormalBackgroundColor;
+  ButtonDecorator.FocusedBackgroundColor := FTheme.ButtonSettings.FocusedBackgroundColor;
+  ButtonDecorator.NormalFrameColor := FTheme.ButtonSettings.NormalFrameColor;
+  ButtonDecorator.FocusedFrameColor := FTheme.ButtonSettings.FocusedFrameColor;
+
+  FTheme.ButtonSettings.CustomTextSettings.ApplyTo(ButtonDecorator.TextLabel);
+
+  // Отображает только часть темы отвечающец за состояние Focused
+  ButtonDecorator := TButtonDecorator.GetDecorator(Button2);
+  ButtonDecorator.NormalBackgroundColor := FTheme.ButtonSettings.FocusedBackgroundColor;
+  ButtonDecorator.NormalFrameColor := FTheme.ButtonSettings.FocusedFrameColor;
+
+  FTheme.ButtonSettings.CustomTextSettings.Container := Button2;
+  FTheme.ButtonSettings.CustomTextSettings.Apply;
+//  FTheme.ButtonSettings.CustomTextSettings.ApplyTo(ButtonDecorator.TextLabel);
+
+  BorderFrame.CloseToolButtonMouseOverBackgroundColor := FTheme.FormSettings.BorderFrameCloseToolButtonMouseOverBackgroundColor;
+  BorderFrame.ToolButtonColor := FTheme.FormSettings.BorderFrameToolButtonColor;
+end;
+
+procedure TMainForm.ToolIconsColorRadioButtonClick(Sender: TObject);
+begin
+  CloseIconMouseOverBackgroundColorRadioButton.IsChecked := true;
+
+  SetColor(FTheme.FormSettings.BorderFrameToolButtonColor);
 end;
 
 procedure TMainForm.UnderlineCheckBoxChange(Sender: TObject);
@@ -330,6 +368,19 @@ begin
   ProcessTextStyleCheckBoxes;
 end;
 
+procedure TMainForm.CloseButtonClick(Sender: TObject);
+begin
+  Close;
+end;
+
+procedure TMainForm.CloseIconMouseOverBackgroundColorRadioButtonClick(
+  Sender: TObject);
+begin
+  CloseIconMouseOverBackgroundColorRadioButton.IsChecked := true;
+
+  SetColor(FTheme.FormSettings.BorderFrameCloseToolButtonMouseOverBackgroundColor);
+end;
+
 procedure TMainForm.ColorQuadChange(Sender: TObject);
 var
   Color: TAlphaColor;
@@ -417,9 +468,39 @@ begin
     FTheme.HintTheme.BorderFrameColor := Color;
   end
   else
-  if ButtonNormalBackgroundRadioButton .IsChecked then
+  if ButtonNormalBackgroundRadioButton.IsChecked then
   begin
     FTheme.ButtonSettings.NormalBackgroundColor := Color;
+  end
+  else
+  if ButtonFocusedBackgroundRadioButton.IsChecked then
+  begin
+    FTheme.ButtonSettings.FocusedBackgroundColor := Color;
+  end
+  else
+  if ButtonNormalFrameRadioButton.IsChecked then
+  begin
+    FTheme.ButtonSettings.NormalFrameColor := Color;
+  end
+  else
+  if ButtonFocusedFrameRadioButton.IsChecked then
+  begin
+    FTheme.ButtonSettings.FocusedFrameColor := Color;
+  end
+  else
+  if ButtonLabelTextRadioButton.IsChecked then
+  begin
+    FTheme.ButtonSettings.CustomTextSettings.FontColor := Color;
+  end
+  else
+  if CloseIconMouseOverBackgroundColorRadioButton.IsChecked then
+  begin
+    FTheme.FormSettings.BorderFrameCloseToolButtonMouseOverBackgroundColor := Color;
+  end
+  else
+  if ToolIconsColorRadioButton.IsChecked then
+  begin
+    FTheme.FormSettings.BorderFrameToolButtonColor := Color;
   end;
 
   ThemeApply;
@@ -491,7 +572,8 @@ begin
   BorderFrameKindComboBox.SilentIndexChange(
     BorderFrameKindComboBox.Items.IndexOf(bfkNormal.ToString));
 
-  TButtonDecorator.Decorate(Button1);
+  FTheme.DecorateButton(Button1);
+  FTheme.DecorateButton(Button2);
 
   ThemeApply;
 end;
@@ -702,11 +784,41 @@ begin
   ThemeApply;
 end;
 
+procedure TMainForm.ButtonFocusedBackgroundRadioButtonClick(Sender: TObject);
+begin
+  ButtonFocusedBackgroundRadioButton.IsChecked := true;
+
+  SetColor(FTheme.ButtonSettings.FocusedBackgroundColor);
+end;
+
+procedure TMainForm.ButtonFocusedFrameRadioButtonClick(Sender: TObject);
+begin
+  ButtonFocusedFrameRadioButton.IsChecked := true;
+
+  SetColor(FTheme.ButtonSettings.FocusedFrameColor);
+end;
+
+procedure TMainForm.ButtonLabelTextRadioButtonClick(Sender: TObject);
+begin
+  ButtonLabelTextRadioButton.IsChecked := true;
+
+  SetTextSettings(FTheme.ButtonSettings.CustomTextSettings);
+
+  SetColor(FTheme.ButtonSettings.CustomTextSettings.FontColor);
+end;
+
 procedure TMainForm.ButtonNormalBackgroundRadioButtonClick(Sender: TObject);
 begin
   ButtonNormalBackgroundRadioButton.IsChecked := true;
 
   SetColor(FTheme.ButtonSettings.NormalBackgroundColor);
+end;
+
+procedure TMainForm.ButtonNormalFrameRadioButtonClick(Sender: TObject);
+begin
+  ButtonNormalFrameRadioButton.IsChecked := true;
+
+  SetColor(FTheme.ButtonSettings.NormalFrameColor);
 end;
 
 procedure TMainForm.HintBorderFrameRadioButtonClick(Sender: TObject);
@@ -801,6 +913,11 @@ begin
   if PopupMenuItemTextColorRadioButton.IsChecked then
   begin
     FTheme.PopUpMenuTheme.CustomTextSettings.FontSize := FontSize;
+  end
+  else
+  if ButtonLabelTextRadioButton.IsChecked then
+  begin
+    FTheme.ButtonSettings.CustomTextSettings.FontSize := FontSize;
   end;
 
   ThemeApply;
