@@ -104,7 +104,7 @@ type
     CloseButton: TButton;
     CloseIconMouseOverBackgroundColorRadioButton: TRadioButton;
     MinIconMouseOverBackgrounColorRadioButton: TRadioButton;
-    MaximizeIconMouseOverRadioButton: TRadioButton;
+    MaxIconMouseOverBackgrounColorRadioButton: TRadioButton;
     ToolIconsColorRadioButton: TRadioButton;
     procedure FormCreate(Sender: TObject);
     procedure ColorQuadChange(Sender: TObject);
@@ -154,6 +154,8 @@ type
     procedure CloseIconMouseOverBackgroundColorRadioButtonClick(
       Sender: TObject);
     procedure ToolIconsColorRadioButtonClick(Sender: TObject);
+    procedure MinIconMouseOverBackgrounColorRadioButtonClick(Sender: TObject);
+    procedure MaxIconMouseOverBackgrounColorRadioButtonClick(Sender: TObject);
   private
     FTheme: TTheme;
 
@@ -244,8 +246,13 @@ begin
   FTheme.ButtonSettings.CustomTextSettings.Apply;
 //  FTheme.ButtonSettings.CustomTextSettings.ApplyTo(ButtonDecorator.TextLabel);
 
-  BorderFrame.CloseToolButtonMouseOverBackgroundColor := FTheme.FormSettings.BorderFrameCloseToolButtonMouseOverBackgroundColor;
   BorderFrame.ToolButtonColor := FTheme.FormSettings.BorderFrameToolButtonColor;
+  BorderFrame.CloseToolButtonMouseOverBackgroundColor :=
+    FTheme.FormSettings.BorderFrameCloseToolButtonMouseOverBackgroundColor;
+  BorderFrame.MinToolButtonMouseOverBackgroundColor  :=
+    FTheme.FormSettings.BorderFrameMinToolButtonMouseOverBackgroundColor;
+  BorderFrame.MaxToolButtonMouseOverBackgroundColor  :=
+    FTheme.FormSettings.BorderFrameMaxToolButtonMouseOverBackgroundColor;
 end;
 
 procedure TMainForm.ToolIconsColorRadioButtonClick(Sender: TObject);
@@ -291,6 +298,21 @@ begin
     Exit;
 
   Load(LoadFileName);
+end;
+
+procedure TMainForm.MaxIconMouseOverBackgrounColorRadioButtonClick(Sender: TObject);
+begin
+  MaxIconMouseOverBackgrounColorRadioButton.IsChecked := true;
+
+  SetColor(FTheme.FormSettings.BorderFrameMaxToolButtonMouseOverBackgroundColor);
+end;
+
+procedure TMainForm.MinIconMouseOverBackgrounColorRadioButtonClick(
+  Sender: TObject);
+begin
+  MinIconMouseOverBackgrounColorRadioButton.IsChecked := true;
+
+  SetColor(FTheme.FormSettings.BorderFrameMinToolButtonMouseOverBackgroundColor);
 end;
 
 procedure TMainForm.SaveMenuItem0Click(Sender: TObject);
@@ -493,14 +515,24 @@ begin
     FTheme.ButtonSettings.CustomTextSettings.FontColor := Color;
   end
   else
+  if ToolIconsColorRadioButton.IsChecked then
+  begin
+    FTheme.FormSettings.BorderFrameToolButtonColor := Color;
+  end
+  else
   if CloseIconMouseOverBackgroundColorRadioButton.IsChecked then
   begin
     FTheme.FormSettings.BorderFrameCloseToolButtonMouseOverBackgroundColor := Color;
   end
   else
-  if ToolIconsColorRadioButton.IsChecked then
+  if MinIconMouseOverBackgrounColorRadioButton.IsChecked then
   begin
-    FTheme.FormSettings.BorderFrameToolButtonColor := Color;
+    FTheme.FormSettings.BorderFrameMinToolButtonMouseOverBackgroundColor := Color;
+  end
+  else
+  if MaxIconMouseOverBackgrounColorRadioButton.IsChecked then
+  begin
+    FTheme.FormSettings.BorderFrameMaxToolButtonMouseOverBackgroundColor := Color;
   end;
 
   ThemeApply;

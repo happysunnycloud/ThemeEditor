@@ -127,8 +127,9 @@ object MainForm: TMainForm
         TabOrder = 40
         Text = 'Min icon mouse over backgroun color'
         TextSettings.FontColor = claWhite
+        OnClick = MinIconMouseOverBackgrounColorRadioButtonClick
       end
-      object MaximizeIconMouseOverRadioButton: TRadioButton
+      object MaxIconMouseOverBackgrounColorRadioButton: TRadioButton
         Align = Top
         StyledSettings = [Family, Size, Style]
         Margins.Left = 10.000000000000000000
@@ -141,6 +142,7 @@ object MainForm: TMainForm
         TabOrder = 41
         Text = 'Max icon mouse over background color'
         TextSettings.FontColor = claWhite
+        OnClick = MaxIconMouseOverBackgrounColorRadioButtonClick
       end
       object ToolIconsColorRadioButton: TRadioButton
         Align = Top
